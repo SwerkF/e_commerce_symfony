@@ -14,14 +14,21 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/panier')]
 class PanierController extends AbstractController
 {
+
     #[Route('/', name: 'app_panier_index', methods: ['GET'])]
     public function index(PanierRepository $panierRepository): Response
     {
+        // get panier user
+        $panier = $panierRepository->findOneBy(['utilisateur' => $this->getUser()]);
+
+        dd($panier);
+
         return $this->render('panier/index.html.twig', [
-            'paniers' => $panierRepository->findAll(),
+            'panier' => $panier,
         ]);
     }
 
+    /*
     #[Route('/new', name: 'app_panier_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -78,4 +85,5 @@ class PanierController extends AbstractController
 
         return $this->redirectToRoute('app_panier_index', [], Response::HTTP_SEE_OTHER);
     }
+    */
 }
