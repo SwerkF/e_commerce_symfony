@@ -3,7 +3,7 @@
 {% block title %}Produit index{% endblock %}
 
 {% block body %}
-    <h1>Produit index</h1>
+    <h1>Produit </h1>
 
     <table class="table">
         <thead>
@@ -25,7 +25,9 @@
                 <td>{{ produit.description }}</td>
                 <td>{{ produit.prix }}</td>
                 <td>{{ produit.stock }}</td>
-                <td>{{ produit.photo }}</td>
+                <td>
+                    <img src="{{asset('uploads/images/products_photo/' ~ produit.photo)}}" style="height: 50px"/>
+                </td>
                 <td>
                     <a href="{{ path('app_produit_show', {'id': produit.id}) }}">show</a>
                     <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
