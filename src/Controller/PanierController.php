@@ -18,17 +18,84 @@ class PanierController extends AbstractController
     #[Route('/', name: 'app_panier_index', methods: ['GET'])]
     public function index(PanierRepository $panierRepository): Response
     {
-        // get panier user
-        $panier = $panierRepository->findOneBy(['utilisateur' => $this->getUser()]);
+        // Redirection si aucun utilisateur
 
-        dd($panier);
+        if($this->getUser() == null) {
+            $this->addFlash(
+                'danger',
+                'Vous devez être connecté pour consulter votre panier.'
+            );
+            $this->redirectToRoute('app_login');
+        }
 
+        // Récupérer le dernier panier de l'utilisateur
+        $panier = $panierRepository->findOneBy(['utilisateur' => $this->getUser(), 'status'=>0]);
+
+        $total = 0;
+
+       if($panier)
+       {
+        foreach($panier->getContenuPaniers() as $contenuPanier) {
+            $total += $contenuPanier->getQuantite() * $contenuPanier->getProduit()->getPrix();
+        }
+       }
+
+        // Redirection
         return $this->render('panier/index.html.twig', [
+            'panier' => $panier,
+            'total' => $total
+        ]);
+    }
+
+    #[Route('/validate', name:"app_panier_validate")]
+    public function validate(PanierRepository $panierRepository, EntityManagerInterface $em): Response
+    {
+        // Redirection si aucun utilisateur
+
+        if($this->getUser() == null) {
+            $this->addFlash(
+                'danger',
+                'Vous devez être connecté pour consulter votre panier.'
+            );
+            $this->redirectToRoute('app_login');
+        }
+
+        // Récupérer le dernier panier de l'utilisateur
+        $panier = $panierRepository->findOneBy(['utilisateur' => $this->getUser(), 'status'=>0]);
+
+        try {
+
+            $panier->setStatus(1);
+            $panier->setDateAchat(new \DateTime());
+            $em->persist($panier);
+            $em->flush();
+            
+            $this->addFlash(
+                'success',
+                'Commande validée! Merci pour votre commande.'
+            );
+
+        } catch (Exception $e)
+        {
+            $this->addFlash(
+                'danger',
+                'Une erreur est survenue lors de la validation de votre panier. Veuillez réessayer.'
+            );
+        }
+
+        // Redirection
+        return $this->redirectToRoute('app_accueil');
+    }
+
+    #[Route('/{id}', name: 'app_panier_show', methods: ['GET'])]
+    public function show(Panier $panier): Response
+    {
+        return $this->render('panier/show.html.twig', [
             'panier' => $panier,
         ]);
     }
 
-    /*
+ /*
     #[Route('/new', name: 'app_panier_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -46,14 +113,6 @@ class PanierController extends AbstractController
         return $this->render('panier/new.html.twig', [
             'panier' => $panier,
             'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_panier_show', methods: ['GET'])]
-    public function show(Panier $panier): Response
-    {
-        return $this->render('panier/show.html.twig', [
-            'panier' => $panier,
         ]);
     }
 

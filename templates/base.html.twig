@@ -26,22 +26,32 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('app_accueil') }}"> Home </a>
                         </li>
+                        
                     </ul>
                     <ul class="navbar-nav">
                         {% if is_granted('ROLE_USER') %}
-                        <li class="nav-item">
-                            <a class=" btn btn-primary" href="{{ path('app_panier_index') }}"> <i class="fi fi-rr-shopping-cart"></i> Panier </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_logout') }}"> Logout </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class=" btn btn-primary" href="{{ path('app_panier_index') }}"> <i class="fi fi-rr-shopping-cart"></i> Panier </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_profile') }}"> 
+                                    {% if app.user and app.user.getProfilePicture() %}
+                                        <img src="{{ asset('uploads/images/profile_pictures/' ~ app.user.profilePhoto) }}" alt="Photo de profil"> {{app.user.username}}
+                                    {% else %}
+                                        <i class="fi fi-rr-user"></i> {{app.user.username}}
+                                    {% endif %}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_logout') }}"> <i class="fi fi-rr-sign-out"></i> Logout </a>
+                            </li>
                         {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_login') }}"> Login </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_register') }}"> Register </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_login') }}"> Login </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_register') }}"> Register </a>
+                            </li>
                         {% endif %}
                     </ul>
                 </div>
