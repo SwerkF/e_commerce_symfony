@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ 'error.forbidden.title'|trans }}</h1>
+
+    <p>
+        {{ 'error.forbidden.message'|trans|raw }}
+    </p>
+
+{% endblock %}

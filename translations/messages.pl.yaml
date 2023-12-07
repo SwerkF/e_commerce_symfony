@@ -1,0 +1,53 @@
+accueil:
+  buttonaddnew: "Dodaj nowy produkt"
+  title: "Linia perfum"
+  buttonaddcart: "Dodaj do koszyka"
+  buttondetail: "Więcej informacji o produkcie"
+nav:
+
+profile:
+  login:
+    signin: "Logowanie"
+  title: "Profil"
+  titlealternative: "Edytuj profil"
+  subtitle1: "Twoje informacje"
+  firstname: "Imię"
+  lastname: "Nazwisko"
+  username: "Nazwa użytkownika"
+  email: "Email"
+  password: "Hasło"
+  subtitle2: "Twoje zamówienia"
+  numcommand: "Numer zamówienia"
+  datecommand: "Data zamówienia"
+  price: "Kwota"
+  precise: "Do uzgodnienia."
+  buttonedit: "Edytuj swój profil"
+  actions: "Akcje"
+  empty: "Nie masz żadnych zamówień"
+  buttonsuccess: "Potwierdź"
+  alert:
+    disconnected: "Rozłączono."
+    connected: "Musisz być zalogowany, aby zobaczyć koszyk."
+
+panier:
+  title: "Koszyk"
+  titlealternative: "Twoje zamówienie"
+  product: "Produkt"
+  productcount: "Liczba artykułów:"
+  quantity: "Ilość"
+  price: "Cena"
+  total: "Razem"
+  action: "Akcja"
+  recap: "Podsumowanie"
+  totalht: "Razem (bez VAT)"
+  tva: "Podatek VAT"
+  coffee: "Podatek od kawy"
+  totalttc: "Razem (z VAT)"
+  buttonorder: "Zamów"
+  emptyordertext: "Proszę dodać produkty, aby złożyć zamówienie."
+  empty: "Twój koszyk jest pusty"
+  alert:
+    connected: "Musisz być zalogowany, aby zobaczyć koszyk."
+    success: "Zamówienie zatwierdzone! Dziękujemy za zakupy."
+    error: "Wystąpił błąd podczas zatwierdzania zamówienia."
+    forbidden: "Nie masz dostępu do tej strony."

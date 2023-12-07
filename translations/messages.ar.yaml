@@ -1,0 +1,54 @@
+accueil:
+  buttonaddnew: "إضافة منتج جديد"
+  title: "مجموعة عطور"
+  buttonaddcart: "إضافة إلى السلة"
+  buttondetail: "مزيد من التفاصيل حول المنتج"
+nav:
+
+
+profile:
+  login:
+    signin: "تسجيل الدخول"
+  title: "الملف الشخصي"
+  titlealternative: "تعديل الملف الشخصي"
+  subtitle1: "معلوماتك"
+  firstname: "الاسم الأول"
+  lastname: "الاسم الأخير"
+  username: "اسم المستخدم"
+  email : "البريد الإلكتروني"
+  password: "كلمة المرور"
+  subtitle2: "طلباتك"
+  numcommand: "رقم الطلب"
+  datecommand: "تاريخ الطلب"
+  price: "المبلغ"
+  precise: "يرجى التحديد."
+  buttonedit: "تعديل الملف الشخصي"
+  actions: "إجراء"
+  empty: "ليس لديك طلبات"
+  buttonsuccess: "تأكيد"
+  alert:
+    disconnected: "غير متصل."
+    connected: "يجب أن تكون متصلاً لعرض سلة التسوق الخاصة بك."
+
+panier:
+  title: "سلة التسوق"
+  titlealternative: "طلبك"
+  product: "المنتج"
+  productcount: "عدد المواد:"
+  quantity: "الكمية"
+  price: "السعر"
+  total: "الإجمالي"
+  action: "إجراء"
+  recap: "ملخص"
+  totalht: "الإجمالي (بدون ضريبة القيمة المضافة)"
+  tva: "ضريبة القيمة المضافة"
+  coffee: "ضريبة القهوة"
+  totalttc: "الإجمالي (شامل ضريبة القيمة المضافة)"
+  buttonorder: "طلب"
+  emptyordertext: "يرجى إضافة منتجات لتقديم طلب."
+  empty: "سلة التسوق الخاصة بك فارغة"
+  alert:
+    connected: "يجب أن تكون متصلاً لعرض سلة التسوق الخاصة بك."
+    success: "تم تأكيد الطلب! شكرًا لطلبك."
+    error: "حدث خطأ أثناء التأكيد."
+    forbidden: "ليس لديك الوصول إلى هذه الصفحة."

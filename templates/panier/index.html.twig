@@ -1,23 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Votre panier{% endblock %}
+{% block title %}{{ 'panier.title'|trans }}{% endblock %}
 
 {% block body %}
 {% set totalAmount = 0 %}
                            
-<h1>Votre panier</h1>
-<p class="card-text">Nombre d'articles : {{ panier.contenuPaniers|length }}</p>
+<h1>{{ 'panier.title'|trans }}</h1>
+{% if panier is not empty %}
+<p class="card-text">{{ 'panier.productcount'|trans }} : {{ panier.contenuPaniers|length }}</p>
+{% endif %}
 <div class="row">
     <div class="col-8">
         <div class="table table-stripped">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Produit</th>
-                        <th>Quantité</th>
-                        <th>Prix</th>
-                        <th>Total</th>
-                        <th>Action</th>
+                        <th>{{ 'panier.product'|trans }}</th>
+                        <th>{{ 'panier.quantity'|trans }}</th>
+                        <th>{{ 'panier.price'|trans }}</th>
+                        <th>{{ 'panier.total'|trans }}</th>
+                        <th>{{ 'panier.action'|trans }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,14 +43,14 @@
                     {% else %}
                     <tr>
                         <td colspan="6">
-                            Votre panier est vide.
+                            {{ 'panier.empty'|trans }}
                         </td>
                     </tr>
                     {% endfor %}
                 {% else %}
                 <tr>
                     <td colspan="6">
-                        Votre panier est vide.
+                        {{ 'panier.empty'|trans }}
                     </td>
                 </tr>
                 {% endif %}
@@ -59,18 +61,18 @@
     <div class="col-4"> 
         <div class="card">
             <div class="card-header">
-                Récap
+                {{ 'panier.recap'|trans }}
             </div>
             <div class="card-body">
             {% if panier is not null  %}
-                <p class="card-text">Total HT: {{ totalAmount }} €</p>
-                <p class="card-text">TVA: 20 %</p>
-                <p class="card-text">Taxe café: 300 €</p>
-                <p class="card-text fw-bold">Total TTC: {{(totalAmount * 1.2) + 300}}</p>
-                <a href={{ path('app_panier_validate') }} class="btn btn-primary" >Commander</a>
+                <p class="card-text">{{ 'panier.totalht'|trans }}: {{ totalAmount }} €</p>
+                <p class="card-text">{{ 'panier.tva'|trans }}: 20 %</p>
+                <p class="card-text">{{ 'panier.coffee'|trans }}: 300 €</p>
+                <p class="card-text fw-bold">{{ 'panier.totalttc'|trans }}: {{(totalAmount * 1.2) + 300}}</p>
+                <a href={{ path('app_panier_validate') }} class="btn btn-primary" >{{ 'panier.buttonorder'|trans }}</a>
             {% else %}
-                <p class="card-text">Veuillez ajouter des produits pour passer une commande.</p>
-                <a href={{ path('app_panier_validate') }} class="btn btn-primary disabled" disabled>Commander</a>
+                <p class="card-text">{{ 'panier.emptyordertext'|trans }}</p>
+                <a href={{ path('app_panier_validate') }} class="btn btn-primary disabled" disabled>{{ 'panier.buttonorder'|trans }}</a>
             {% endif %}
             </div>
         </div>

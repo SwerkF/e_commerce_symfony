@@ -1,0 +1,53 @@
+accueil:
+  buttonaddnew: "Kosala lobundu moko"
+  title: "Makoki ya makanisi"
+  buttonaddcart: "Kosala na panié"
+  buttondetail: "Elongi mpo na makanisi oyo"
+nav:
+
+profile:
+  login:
+    signin: "Kokoma"
+  title: "Profil"
+  titlealternative: "Kosala mbuma"
+  subtitle1: "Mbuma na yo"
+  firstname: "Mokonzi"
+  lastname: "Nom"
+  username: "Nom"
+  email : "E-mail"
+  password: "Mot de passe"
+  subtitle2: "Mbuma na yo"
+  numcommand: "Nzela ya kombo"
+  datecommand: "Lelo ya kombo"
+  price: "Lingomba"
+  precise: "Mokomi."
+  buttonedit: "Kosala mbuma na yo"
+  actions: "Likolo"
+  empty: "Oyo ezali ekolongana te na kombo"
+  buttonsuccess: "Kokendisa"
+  alert:
+    disconnected: "Ekomi kosala te."
+    connected: "Oyo ekendaki koyebana na kombo na yo."
+
+panier:
+  title: "Panié"
+  titlealternative: "Lisusu ya kombo na yo"
+  product: "Makanisi"
+  productcount: "Lisatu ya makanisi:"
+  quantity: "Kolanda"
+  price: "Lingomba"
+  total: "Total"
+  action: "Likolo"
+  recap: "Elekaki"
+  totalht: "Total HT"
+  tva: "TVA"
+  coffee: "Tax café"
+  totalttc: "Total TTC"
+  buttonorder: "Kokomisaka"
+  emptyordertext: "Kosala makanisi mpo na kokomisaka."
+  empty: "Panié na yo ezali likonzi"
+  alert:
+    connected: "Oyo ekendaki koyebana na panié na yo."
+    success: "Kombo ekosakolaki! Mboté na kombo na yo."
+    error: "Lisusu elumbi likoló na kokomisaka."
+    forbidden: "Oyo ezali na zwa d'entrée na yo te na mokanda oyo."
