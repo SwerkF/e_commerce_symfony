@@ -1,0 +1,72 @@
+accueil:
+  buttonaddnew: "إضافة منتج جديد"
+  title: "مجموعة عطور"
+  buttonaddcart: "إضافة إلى السلة"
+  buttondetail: "المزيد من تفاصيل المنتج"
+nav:
+
+profile:
+  login:
+    signin: "تسجيل الدخول"
+  title: "الملف الشخصي"
+  titlealternative: "تحرير الملف الشخصي"
+  subtitle1: "معلوماتك"
+  firstname: "الاسم"
+  lastname: "اللقب"
+  username: "اسم المستخدم"
+  email: "البريد الإلكتروني"
+  password: "كلمة المرور"
+  subtitle2: "طلباتك"
+  numcommand: "رقم الطلب"
+  datecommand: "تاريخ الطلب"
+  price: "المبلغ"
+  precise: "توضيح"
+  buttonedit: "تحرير الملف الشخصي"
+  actions: "الإجراءات"
+  empty: "ليس لديك طلبات"
+  buttonsuccess: "تأكيد"
+  alert:
+    disconnected: "غير متصل."
+    connected: "يجب عليك تسجيل الدخول لعرض سلة التسوق."
+
+input:
+  mime: "يرجى اختيار نوع الصورة الصحيح والتحقق من الحجم."
+panier:
+  title: "سلة التسوق"
+  titlealternative: "طلبك"
+  product: "المنتج"
+  productcount: "عدد العناصر:"
+  quantity: "الكمية"
+  price: "السعر"
+  total: "المجموع"
+  action: "الإجراء"
+  recap: "ملخص"
+  totalht: "المجموع بدون ضريبة"
+  tva: "ضريبة القيمة المضافة"
+  coffee: "ضريبة القهوة"
+  totalttc: "المجموع مع الضريبة"
+  buttonorder: "الطلب"
+  emptyordertext: "يرجى إضافة منتجات لتقديم طلب."
+  empty: "سلة التسوق الخاصة بك فارغة"
+  alert:
+    connected: "يجب عليك تسجيل الدخول لعرض سلة التسوق."
+    success: "تم تأكيد الطلب! شكرًا لك على طلبك."
+    error: "حدث خطأ أثناء التأكيد."
+    forbidden: "ليس لديك إذن للوصول إلى هذه الصفحة."
+titlemdp: "تغيير كلمة المرور"    
+btneditmdr: "تحرير"
+mdp: "كلمة المرور الجديدة"
+rmdp: "كرر كلمة المرور"
+omdp: "كلمة المرور القديمة"
+errorlenmdp: "يجب أن تحتوي كلمة المرور على الأقل 8 أحرف"
+erroragreeterm: "يجب عليك قبول الشروط والأحكام."
+errornomdp: "يرجى تقديم كلمة مرور."
+mimetyperror: "يجب عليك إرسال ملف صورة صالح."
+
+error:
+  forbidden: 
+    title: "خطأ 403، الوصول مرفوض."
+    message: "ليس لديك إذن للوصول إلى هذه الصفحة. <a href='{{ path('app_accueil') }}>العودة إلى الصفحة الرئيسية</a>"
+  notfound:
+    title: "خطأ 404، الصفحة غير موجودة."
+    message: "لم يتم العثور على الصفحة المطلوبة. <a href='{{ path('app_accueil') }}>العودة إلى الصفحة الرئيسية</a>"

@@ -31,7 +31,7 @@ class ProduitType extends AbstractType
                             'image/png',
                             'image/gif',
                         ],
-                        'mimeTypesMessage' => 'Merci de choisir un fichier image valide (JPG, PNG, GIF)',
+                        'mimeTypesMessage' => 'mimetyperror',
                     ])
                 ],
             ])
