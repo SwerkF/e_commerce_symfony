@@ -29,27 +29,37 @@
                         
                     </ul>
                     <ul class="navbar-nav">
-                        {% if is_granted("ROLE_SUPER_ADMIN") %}
+                        
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <!-- Liens spécifiques pour les administrateurs -->
                             <li class="nav-item">
-                                <a class=" btn btn-primary" href="{{ path('app_panier_admin_show') }}"> <i class="fi fi-rr-shopping-cart"></i> Panier non acheté </a>
+                                <a class="nav-link" href="#">Admin Dashboard</a>
                             </li>
+                            <li class="nav-item">
+                            <a class=" btn btn-primary" href="{{ path('app_panier_index') }}"> <i class="fi fi-rr-shopping-cart"></i> Panier </a>
+                            </li>
+                             {% if app.user and app.user.getProfilePicture() %}
+                                <img src="{{ asset('uploads/images/profile_pictures/' ~ app.user.getProfilePicture()) }}" class="rounded-circle" style="object-fit: contain" width="40px" height="40px" alt="Photo de profil"> {{app.user.username}}
+                            {% else %}
+                                <i class="fi fi-rr-user"></i> {{app.user.username}}
+                            {% endif %}
+                            <!-- D'autres liens admin spécifiques peuvent être ajoutés ici -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                            </li>
+                        {% elseif is_granted('ROLE_USER') %}
+
+                        <li class="nav-item">
+                            <a class=" btn btn-primary" href="{{ path('app_panier_index') }}"> <i class="fi fi-rr-shopping-cart"></i> Panier </a>
+                        </li>
+                         {% if app.user and app.user.getProfilePicture() %}
+                            <img src="{{ asset('uploads/images/profile_pictures/' ~ app.user.getProfilePicture()) }}" class="rounded-circle" style="object-fit: contain" width="40px" height="40px" alt="Photo de profil"> {{app.user.username}}
+                        {% else %}
+                            <i class="fi fi-rr-user"></i> {{app.user.username}}
                         {% endif %}
-                        {% if is_granted('ROLE_USER') %}
-                            <li class="nav-item">
-                                <a class=" btn btn-primary" href="{{ path('app_panier_index') }}"> <i class="fi fi-rr-shopping-cart"></i> Panier </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ path('app_profile') }}"> 
-                                    {% if app.user and app.user.getProfilePicture() %}
-                                        <img src="{{ asset('uploads/images/profile_pictures/' ~ app.user.getProfilePicture()) }}" class="rounded-circle" style="object-fit: contain" width="40px" height="40px" alt="Photo de profil"> {{app.user.username}}
-                                    {% else %}
-                                        <i class="fi fi-rr-user"></i> {{app.user.username}}
-                                    {% endif %}
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ path('app_logout') }}"> <i class="fi fi-rr-sign-out"></i> Logout </a>
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_logout') }}"> Logout </a>
+                        </li>
                         {% else %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('app_login') }}"> Login </a>
@@ -58,7 +68,10 @@
                                 <a class="nav-link" href="{{ path('app_register') }}"> Register </a>
                             </li>
                         {% endif %}
+
+
                     </ul>
+
                 </div>
             </div>
         </nav>
