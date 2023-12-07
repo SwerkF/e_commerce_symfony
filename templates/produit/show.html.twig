@@ -3,40 +3,46 @@
 {% block title %}Produit{% endblock %}
 
 {% block body %}
-    <h1>Produit</h1>
+    <h1>Détails du Produit</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ produit.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ produit.nom }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ produit.description }}</td>
-            </tr>
-            <tr>
-                <th>Prix</th>
-                <td>{{ produit.prix }}</td>
-            </tr>
-            <tr>
-                <th>Stock</th>
-                <td>{{ produit.stock }}</td>
-            </tr>
-            <tr>
-                <th>Photo</th>
-                <td>{{ produit.photo }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="d-flex flex-row">
+        <div class="col-md-6">
+            <!-- Utilisation de img-fluid pour une image réactive -->
+            <img width="300px" height="300px" class="img-fluid" src="{{ asset('uploads/images/products_photo/' ~ produit.photo) }}" alt="Image de {{ produit.nom }}">
+        </div>
+        <div class="col-md-6">
+            {% if produit is not empty %}
+                <div class="card h-100"> <!-- h-100 pour aligner la hauteur avec l'image -->
+                    <div class="card-body">
+                        <h5 class="card-title">{{ produit.nom }}</h5>
+                        <p class="card-text">{{ produit.description }}</p>
+                        <p class="card-text">{{ produit.prix }} €</p>
+                    </div>
+                    <div class="card-footer">
+                        <a type="button" href="{{ path('app_panier_new', {'id': produit.id}) }}" class="btn btn-primary btn-sm">Ajouter au Panier</a>
+                        <a type="button" href="{{ path('app_produit_show', {'id': produit.id}) }}" class="btn btn-secondary btn-sm">Plus de détails sur le produit</a>
+                    </div>
+                </div>
+            {% else %}
+                <p>Il n'y a aucun produit</p>
+            {% endif %}
+        </div>
+    </div>
 
-    <a href="{{ path('app_produit_index') }}">back to list</a>
+    <a href="{{ path('app_produit_index') }}">Retourner à la liste</a>
 
-    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
-
+    <!--Uniquement l'admin peut supprimer ou ajouter un produit-->
+    {% if is_granted('ROLE_SUPER_ADMIN') %}
+    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">Modifier les infos du produit</a>
     {{ include('produit/_delete_form.html.twig') }}
+    {% elseif is_granted('ROLE_ADMIN')%}
+    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">Modifier les infos du produit</a>
+    {{ include('produit/_delete_form.html.twig') }}
+    {% endif %}
+    
+    
+
+
+    
+
 {% endblock %}

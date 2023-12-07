@@ -3,28 +3,32 @@
 {% block title %}Hello AccueilController!{% endblock %}
 
 {% block body %}
-
-    {% if is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_SUPER_ADMIN') %}
+    
+    <div class="alert alert-dark" href="{{ path('app_produit_new') }}" style="margin: 15px; text-align:center;" ><a href="{{ path('app_produit_new') }}" style="text-decoration: none; color: black;">Ajouter un nouveau Produit</a></div>
+    <button type="button" class="btn btn-outline-secondary"><a href="{{ path('app_produit_new') }}" style="text-decoration: none; color: black;">Ajouter un nouveau Produit</a></button>
+    {% elseif is_granted('ROLE_ADMIN') %}
     
     <div class="alert alert-dark" href="{{ path('app_produit_new') }}" style="margin: 15px; text-align:center;" ><a href="{{ path('app_produit_new') }}" style="text-decoration: none; color: black;">Ajouter un nouveau Produit</a></div>
     <button type="button" class="btn btn-outline-secondary"><a href="{{ path('app_produit_new') }}" style="text-decoration: none; color: black;">Ajouter un nouveau Produit</a></button>
     {% endif %}
     <h1>Gamme de Parfum</h1>
-    
-    {% if produits is not empty %}
-    <div class="row"> <!-- Ajout de la classe row ici -->
+
+
+{% if produits is not empty %}
+    <div class="row">
         {% for prod in produits %}
-            <div class="col"> <!-- Chaque carte occupe 3 colonnes sur medium devices et 6 sur small devices -->
-                <div class="card">
-                    <img style="object-fit: contain" width="300px" height="300px" class="card-img-top" src="{{ asset('uploads/images/products_photo/' ~ prod.photo) }}" alt="Image de {{ prod.nom }}">
+            <div class="col-md-4 mb-4"> <!-- Taille de colonne fixe et marge en bas -->
+                <div class="card h-100"> <!-- Hauteur égale pour toutes les cartes -->
+                    <img style="object-fit: contain" width="300px" height="300px" class="card-img-top" src="{{ asset('uploads/images/products_photo/' ~ prod.photo) }}" alt="Image de {{ prod.nom }}"> <!-- Image réactive -->
                     <div class="card-body">
                         <h5 class="card-title">{{ prod.nom }}</h5>
                         <p class="card-text">{{ prod.description }}</p>
                         <p class="card-text">{{ prod.prix }} €</p>
                     </div>
                     <div class="card-footer">
-                        <a type="button" href="{{ path('app_produit_show', {'id': prod.id}) }}" class="btn btn-primary btn-sm"> Ajouter au Panier</a>
-                        <a type="button"  href="{{ path('app_produit_show', {'id': prod.id}) }}" class="btn btn-secondary btn-sm" >Plus de détails sur le produit</a>
+                        <a type="button" href="{{ path('app_panier_new', {'id': prod.id}) }}" class="btn btn-primary btn-sm">Ajouter au Panier</a>
+                        <a type="button" href="{{ path('app_produit_show', {'id': prod.id}) }}" class="btn btn-secondary btn-sm">Plus de détails</a>
                     </div>
                 </div>
             </div>
@@ -33,6 +37,7 @@
 {% else %}
     <p>Il n'y a aucun produit</p>
 {% endif %}
+
 
 
     
