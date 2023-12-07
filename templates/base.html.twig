@@ -29,6 +29,11 @@
                         
                     </ul>
                     <ul class="navbar-nav">
+                        {% if is_granted("ROLE_SUPER_ADMIN") %}
+                            <li class="nav-item">
+                                <a class=" btn btn-primary" href="{{ path('app_panier_admin_show') }}"> <i class="fi fi-rr-shopping-cart"></i> Panier non acheté </a>
+                            </li>
+                        {% endif %}
                         {% if is_granted('ROLE_USER') %}
                             <li class="nav-item">
                                 <a class=" btn btn-primary" href="{{ path('app_panier_index') }}"> <i class="fi fi-rr-shopping-cart"></i> Panier </a>
@@ -36,7 +41,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('app_profile') }}"> 
                                     {% if app.user and app.user.getProfilePicture() %}
-                                        <img src="{{ asset('uploads/images/profile_pictures/' ~ app.user.profilePhoto) }}" alt="Photo de profil"> {{app.user.username}}
+                                        <img src="{{ asset('uploads/images/profile_pictures/' ~ app.user.getProfilePicture()) }}" class="rounded-circle" style="object-fit: contain" width="40px" height="40px" alt="Photo de profil"> {{app.user.username}}
                                     {% else %}
                                         <i class="fi fi-rr-user"></i> {{app.user.username}}
                                     {% endif %}

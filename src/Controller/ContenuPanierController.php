@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/contenu')]
 class ContenuPanierController extends AbstractController
 {
+    // Voir les contenus de tous les paniers
     #[Route('/', name: 'app_contenu_panier_index', methods: ['GET'])]
     public function index(ContenuPanierRepository $contenuPanierRepository): Response
     {
@@ -22,6 +23,7 @@ class ContenuPanierController extends AbstractController
         ]);
     }
 
+    // Nouveau contenu dans le panier
     #[Route('/new', name: 'app_contenu_panier_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -42,6 +44,7 @@ class ContenuPanierController extends AbstractController
         ]);
     }
 
+    // Affichage un contenu panier
     #[Route('/{id}', name: 'app_contenu_panier_show', methods: ['GET'])]
     public function show(ContenuPanier $contenuPanier): Response
     {
@@ -50,6 +53,7 @@ class ContenuPanierController extends AbstractController
         ]);
     }
 
+    // Edit contenu panier
     #[Route('/{id}/edit', name: 'app_contenu_panier_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, ContenuPanier $contenuPanier, EntityManagerInterface $entityManager): Response
     {
@@ -68,6 +72,7 @@ class ContenuPanierController extends AbstractController
         ]);
     }
 
+    // Supprimer un contenu du panier
     #[Route('/{id}', name: 'app_contenu_panier_delete', methods: ['POST'])]
     public function delete(Request $request, ContenuPanier $contenuPanier, EntityManagerInterface $entityManager): Response
     {
