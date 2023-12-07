@@ -28,7 +28,20 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav">
-                        {% if is_granted('ROLE_USER') %}
+                        
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <!-- Liens spécifiques pour les administrateurs -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Admin Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class=" btn btn-primary" href="{{ path('app_panier_index') }}"> <i class="fi fi-rr-shopping-cart"></i> Panier </a>
+                            </li>
+                            <!-- D'autres liens admin spécifiques peuvent être ajoutés ici -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                            </li>
+                        {% elseif is_granted('ROLE_USER') %}
                         <li class="nav-item">
                             <a class=" btn btn-primary" href="{{ path('app_panier_index') }}"> <i class="fi fi-rr-shopping-cart"></i> Panier </a>
                         </li>
@@ -44,15 +57,6 @@
                         </li>
                         {% endif %}
 
-
-                        {% if is_granted('ROLE_ADMIN') %}
-                        <li class="nav-item">
-                            <a class=" btn btn-primary" href="{{ path('app_panier_index') }}"> <i class="fi fi-rr-shopping-cart"></i> Panier </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_logout') }}"> Logout </a>
-                        </li>
-                        {% endif %}
 
                     </ul>
 
