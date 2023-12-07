@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre commande{% endblock %}
+
+{% block body %}
+    <h2 class="mt-4">Vos commandes</h2>
+    <div class="row">
+        <table class="table table-stripped">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Numéro commande</th>
+                    <th>Contenu</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for commande in paniers %}
+                    <tr>
+                        <td>{{commande.id}}</td>
+                        <td>{{commande.getDateAchat()|date('d/m/Y')}}</td>
+                        <td> 
+                            {% for contenu in commande.getContenuPaniers() %}
+                                <ul>
+                                    <li> {{ contenu.produit.nom }} </li>
+                                </ul>
+                            {% endfor  %}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6">
+                            Vous n'avez pas de commandes.
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}

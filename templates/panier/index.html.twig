@@ -3,6 +3,79 @@
 {% block title %}Votre panier{% endblock %}
 
 {% block body %}
- 
+{% set totalAmount = 0 %}
+                           
+<h1>Votre panier</h1>
+<p class="card-text">Nombre d'articles : {{ panier.contenuPaniers|length }}</p>
+<div class="row">
+    <div class="col-8">
+        <div class="table table-stripped">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Produit</th>
+                        <th>Quantité</th>
+                        <th>Prix</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% if panier is not null  %}
+                    {% for item in panier.contenuPaniers %}
+                    <tr>
+                        <td>{{ item.produit.nom }}</td>
+                        <td>{{ item.quantite }}</td>
+                        <td>{{ item.produit.prix }} €</td>
+                        <td>
+                            {{ item.produit.prix * item.quantite }} €
+                            {% set totalAmount = totalAmount + (item.produit.prix * item.quantite) %}
+                        </td>
+                        <td>
+                            <div class="d-flex flex-row">
+                                <a href={{ path('app_produit_show', {'id': item.produit.id})}} class="btn btn-primary"><i class="fi fi-rr-eye"></i></a>
+                                {{ include('contenu_panier/_delete_form.html.twig', { 'contenu_panier': item }) }}
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6">
+                            Votre panier est vide.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="6">
+                        Votre panier est vide.
+                    </td>
+                </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>  
+    </div>
+    <div class="col-4"> 
+        <div class="card">
+            <div class="card-header">
+                Récap
+            </div>
+            <div class="card-body">
+            {% if panier is not null  %}
+                <p class="card-text">Total HT: {{ totalAmount }} €</p>
+                <p class="card-text">TVA: 20 %</p>
+                <p class="card-text">Taxe café: 300 €</p>
+                <p class="card-text fw-bold">Total TTC: {{(totalAmount * 1.2) + 300}}</p>
+                <a href={{ path('app_panier_validate') }} class="btn btn-primary" >Commander</a>
+            {% else %}
+                <p class="card-text">Veuillez ajouter des produits pour passer une commande.</p>
+                <a href={{ path('app_panier_validate') }} class="btn btn-primary disabled" disabled>Commander</a>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
 
 {% endblock %}
