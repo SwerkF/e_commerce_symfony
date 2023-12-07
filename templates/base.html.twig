@@ -55,34 +55,68 @@ border: 1px solid rgba(255, 255, 255, 0.3);
                         
                     </ul>
                     <ul class="navbar-nav">
-                        
-                        {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item">
+                            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                <a class="nav-link" href="{{ path('app_produit_index') }}">Produit</a>
+                            {% else %}
+                                <a class="nav-link" href="{{ path('app_login') }}">Produit</a>
+                            {% endif %}
+                        </li>
+                        {% if is_granted('ROLE_SUPER_ADMIN') %}
                         <!-- Liens spécifiques pour les administrateurs -->
+                            
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Admin Dashboard</a>
                             </li>
+
                             <li class="nav-item">
                             <a class=" btn btn-primary" href="{{ path('app_panier_index') }}"> <i class="fi fi-rr-shopping-cart"></i> Panier </a>
                             </li>
-                             {% if app.user and app.user.getProfilePicture() %}
-                                <img src="{{ asset('uploads/images/profile_pictures/' ~ app.user.getProfilePicture()) }}" class="rounded-circle" style="object-fit: contain" width="40px" height="40px" alt="Photo de profil"> {{app.user.username}}
-                            {% else %}
-                                <i class="fi fi-rr-user"></i> {{app.user.username}}
-                            {% endif %}
+    
                             <!-- D'autres liens admin spécifiques peuvent être ajoutés ici -->
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Admin Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_clientList') }}">Liste des Utilisateurs</a>
+                            </li>
+
+                        {% elseif is_granted('ROLE_ADMIN') %}
+                        <!-- Liens spécifiques pour les administrateurs -->
+                            
+                            <li class="nav-item">
+                            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                <a class="nav-link" href="{{ path('app_produit_index') }}">Produit</a>
+                            {% else %}
+                                <a class="nav-link" href="{{ path('app_login') }}">Produit</a>
+                            {% endif %}
+                            </li>
+
+                            <li class="nav-item">
+                            <a class=" btn btn-primary" href="{{ path('app_panier_index') }}"> <i class="fi fi-rr-shopping-cart"></i> Panier </a>
+                            </li>
+                             
+                            <!-- D'autres liens admin spécifiques peuvent être ajoutés ici -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                            </li>
+                            
                         {% elseif is_granted('ROLE_USER') %}
+
+                        <li class="nav-item">
+                            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                <a class="nav-link" href="{{ path('app_produit_index') }}">Produit</a>
+                            {% else %}
+                                <a class="nav-link" href="{{ path('app_login') }}">Produit</a>
+                            {% endif %}
+                        </li>
 
                         <li class="nav-item">
                             <a class=" btn btn-primary" href="{{ path('app_panier_index') }}"> <i class="fi fi-rr-shopping-cart"></i> Panier </a>
                         </li>
-                         {% if app.user and app.user.getProfilePicture() %}
-                            <img src="{{ asset('uploads/images/profile_pictures/' ~ app.user.getProfilePicture()) }}" class="rounded-circle" style="object-fit: contain" width="40px" height="40px" alt="Photo de profil"> {{app.user.username}}
-                        {% else %}
-                            <i class="fi fi-rr-user"></i> {{app.user.username}}
-                        {% endif %}
+                         
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('app_logout') }}"> Logout </a>
                         </li>
@@ -94,7 +128,21 @@ border: 1px solid rgba(255, 255, 255, 0.3);
                                 <a class="nav-link" href="{{ path('app_register') }}"> Register </a>
                             </li>
                         {% endif %}
+                        
+                        <div class="ms-auto d-flex align-items-center">
+                            {% if app.user and app.user.getProfilePicture() %}
+                                <img src="{{ asset('uploads/images/profile_pictures/' ~ app.user.getProfilePicture()) }}" class="rounded-circle" style="object-fit: contain" width="40px" height="40px" alt="Photo de profil">
+                            {% else %}
+                                <i class="fi fi-rr-user"></i>
+                                
+                            {% endif %}
+                            {% if app.user and app.user.username %}
+                            <span class="ms-2">{{ app.user.username }}</span>
+                            {% endif %}
 
+                            
+                            
+                        </div>
 
                     </ul>
 

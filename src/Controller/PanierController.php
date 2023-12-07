@@ -155,7 +155,7 @@ class PanierController extends AbstractController
 
     
 
- /*
+ 
     #[Route('/new', name: 'app_panier_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -175,7 +175,7 @@ class PanierController extends AbstractController
             'form' => $form,
         ]);
     }
-
+/*
     #[Route('/{id}/edit', name: 'app_panier_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Panier $panier, EntityManagerInterface $entityManager): Response
     {

@@ -13,6 +13,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use App\Repository\UserRepository;
 
 class RegistrationController extends AbstractController
 {
@@ -34,6 +35,7 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
+            $this->addFlash('success', 'Votre Compte à bien été créé');
             // do anything else you need here, like send an email
 
             return $userAuthenticator->authenticateUser(
@@ -45,6 +47,16 @@ class RegistrationController extends AbstractController
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/client', name: 'app_clientList')]
+    public function listUsers(UserRepository $userRepository)
+    {
+        $users = $userRepository->findAll();
+
+        return $this->render('panier/admin/showUser.htmltwig', [
+            'users' => $users,
         ]);
     }
 }
