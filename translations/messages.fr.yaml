@@ -1,0 +1,73 @@
+accueil:
+  buttonaddnew: "Ajouter un nouveau produit"
+  title: "Gamme de parfum"
+  buttonaddcart: "Ajout au panier"
+  buttondetail: "Plus de détails sur le produit"
+nav:
+
+profile:
+  login:
+    signin: "Connexion"
+  title: "Profile"
+  titlealternative: "Modifier le profil"
+  subtitle1: "Vos informations"
+  firstname: "Prenom"
+  lastname: "Nom"
+  username: "Nom"
+  email : "Email"
+  password: "Mot de passe"
+  subtitle2: "Vos commandes"
+  numcommand: "Numéro de commande"
+  datecommand: "Date de commande"
+  price: "Montant"
+  precise: "A préciser."
+  buttonedit: "Modifier votre profile"
+  actions: "Action"
+  empty: "Vous n'avez pas de commande"
+  buttonsuccess: "Confirmer"
+  alert:
+    disconnected: "Deconnecté."
+    connected: "Vous devez être connecté pour consulter votre panier."
+
+input:
+  mime: "Merci de choisir le bon type d'image et de respecter la taille."
+panier:
+  title: "Panier"
+  titlealternative: "Votre commande"
+  product: "Produit"
+  productcount: "Nombre d'article:"
+  quantity: "Quantite"
+  price: "Prix"
+  total: "Total"
+  action: "Action"
+  recap: "Récapitulatif"
+  totalht: "Total HT"
+  tva: "TVA"
+  coffee: "Tax café"
+  totalttc: "Total TTC"
+  buttonorder: "Commander"
+  emptyordertext: "Veuillez ajouter des produits pour passer une commande."
+  empty: "Votre panier est vide"
+  alert:
+    connected: "Vous devez être connecté pour consulter votre panier."
+    success: "Commande validée! Merci pour votre commande."
+    error: "Une erreur est survenue lors de la validation."
+    forbidden: "Vous n'avez pas accès à cette page."
+titlemdp: "Modification du mot de passe"    
+btneditmdr: "Modifier"
+mdp: "Nouveau mot de passe"
+rmdp: "Répétez le mot de passe"
+omdp: "Ancien mot de passe"
+errorlenmdp: "Votre mot de passe doit faire minimum 8 caractères"
+erroragreeterm: "Vous devez accepter les conditions générales."
+errornomdp: "Veuillez renseigner un mot de passe."
+mimetyperror: "Vous devez envoyer un fichier image valide."
+
+error:
+  forbidden: 
+    title: "Erreur 403, accès refusé ."
+    message: "Vous n'avez pas accès à cette page. <a href='{{ path('app_accueil') }}>Retourner à l'accueil</a>"
+  notfound:
+    title: "Erreur 404, page non trouvée."
+    message: "La page demandée n'a pas été trouvée. <a href='{{ path('app_accueil') }}>Retourner à l'accueil</a>"
+  

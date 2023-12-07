@@ -5,17 +5,19 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Panier;
 use App\Form\UserType;
+use App\Form\UserPasswordType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class SecurityController extends AbstractController
 {
     // Connexion
-    #[Route(path: '/login', name: 'app_login')]
+    #[Route(path: '/{_locale}/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         // Redirection si un utilisateur est connecté
@@ -30,7 +32,7 @@ class SecurityController extends AbstractController
     }
 
     // Déconnexion
-    #[Route(path: '/logout', name: 'app_logout')]
+    #[Route(path: '/{_locale}/logout', name: 'app_logout')]
     public function logout(): void
     {
         // Message flash
@@ -41,7 +43,7 @@ class SecurityController extends AbstractController
     }
 
     // Consultation de notre profile
-    #[Route(path: '/profile', name: 'app_profile')]
+    #[Route(path: '/{_locale}/profile', name: 'app_profile')]
     public function profile(EntityManagerInterface $em)
     {
 
@@ -65,8 +67,8 @@ class SecurityController extends AbstractController
     }
 
     // Modification du profile
-    #[Route(path: '/profile/edit', name: 'app_profile_edit')]
-    public function edit(EntityManagerInterface $em, Request $request)
+    #[Route(path: '/{_locale}/profile/edit', name: 'app_profile_edit')]
+    public function edit(EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $userPasswordHasher)
     {
         // Redirection si aucun utilisateur est connecté
         $profile = $this->getUser();
@@ -127,6 +129,66 @@ class SecurityController extends AbstractController
         }
 
         return $this->render('security/edit.html.twig', ['form' => $form->createView()]);
+    }
+
+    // Modification du mot de passe
+    #[Route(path: '/{_locale}/profile/password', name: 'app_password_edit')]
+    public function editPassword(EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $userPasswordHasher)
+    {
+        // Redirection si aucun utilisateur est connecté
+        $profile = $this->getUser();
+        if($profile == null)
+        {
+            // Message flash
+            $this->addFlash(
+                'danger',
+                'Vous devez être connecté pour accéder à cette page.'
+            );
+
+            return $this->redirectToRoute('app_login');
+        }
+
+        // Création du formulaire
+        $form = $this->createForm(UserPasswordType::class, $profile);
+
+        // Traitement du formulaire
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            // Vérifier si le mot de passe entré correspond au mot de passe de l'utilisateur
+            if(!$userPasswordHasher->isPasswordValid($profile, $form->get('oldPassword')->getData()))
+            {
+                // Message flash
+                $this->addFlash(
+                    'danger',
+                    'Mot de passe incorrect.'
+                );
+
+                return $this->redirectToRoute('app_password_edit');
+            }
+
+            // hashage du nouveau mot de passe
+            $profile->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $profile,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+
+            // Enregistrement en base de données
+            $em->persist($profile);
+            $em->flush();
+
+            // Message flash
+            $this->addFlash(
+                'success',
+                'Mot de passe modifié.'
+            );
+
+            return $this->redirectToRoute('app_profile');
+        }
+
+        return $this->render('security/edit_password.html.twig', ['form' => $form->createView()]);
     }
 
     

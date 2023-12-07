@@ -11,20 +11,21 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
-#[Route('/panier')]
+#[Route('/{_locale}/panier')]
 class PanierController extends AbstractController
 {
 
     // Route pour consulter le panier
     #[Route('/', name: 'app_panier_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $em): Response
+    public function index(TranslatorInterface $translator, EntityManagerInterface $em): Response
     {
         // Redirection si aucun utilisateur est connecté 
         if($this->getUser() == null) {
             $this->addFlash(
                 'danger',
-                'Vous devez être connecté pour consulter votre panier.'
+                $translator->trans('panier.alert.connected')
             );
             $this->redirectToRoute('app_login');
         }
@@ -40,13 +41,13 @@ class PanierController extends AbstractController
 
     // Validation du panier
     #[Route('/validate', name:"app_panier_validate")]
-    public function validate(PanierRepository $panierRepository, EntityManagerInterface $em): Response
+    public function validate(TranslatorInterface $translator, PanierRepository $panierRepository, EntityManagerInterface $em): Response
     {
         // Redirection si aucun utilisateur est connecté
         if($this->getUser() == null) {
             $this->addFlash(
                 'danger',
-                'Vous devez être connecté pour consulter votre panier.'
+                $translator->trans('panier.alert.connected')
             );
             $this->redirectToRoute('app_login');
         }
@@ -66,7 +67,7 @@ class PanierController extends AbstractController
             // Message flash
             $this->addFlash(
                 'success',
-                'Commande validée! Merci pour votre commande.'
+                $translator->trans('panier.alert.success')
             );
 
         } catch (Exception $e)
@@ -74,7 +75,7 @@ class PanierController extends AbstractController
             // Message flash
             $this->addFlash(
                 'danger',
-                'Une erreur est survenue lors de la validation de votre panier. Veuillez réessayer.'
+                $translator->trans('panier.alert.error')
             );
         }
 

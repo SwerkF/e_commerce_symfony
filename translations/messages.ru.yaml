@@ -1,0 +1,54 @@
+accueil:
+  buttonaddnew: "Добавить новый продукт"
+  title: "Линейка парфюма"
+  buttonaddcart: "Добавить в корзину"
+  buttondetail: "Подробнее о продукте"
+nav:
+
+
+profile:
+  login:
+    signin: "Войти"
+  title: "Профиль"
+  titlealternative: "Изменить профиль"
+  subtitle1: "Ваши данные"
+  firstname: "Имя"
+  lastname: "Фамилия"
+  username: "Имя пользователя"
+  email : "Электронная почта"
+  password: "Пароль"
+  subtitle2: "Ваши заказы"
+  numcommand: "Номер заказа"
+  datecommand: "Дата заказа"
+  price: "Сумма"
+  precise: "Уточнить."
+  buttonedit: "Изменить профиль"
+  actions: "Действие"
+  empty: "У вас нет заказов"
+  buttonsuccess: "Подтвердить"
+  alert:
+    disconnected: "Отключено."
+    connected: "Вы должны быть подключены, чтобы просмотреть корзину."
+
+panier:
+  title: "Корзина"
+  titlealternative: "Ваш заказ"
+  product: "Продукт"
+  productcount: "Количество товара:"
+  quantity: "Количество"
+  price: "Цена"
+  total: "Итого"
+  action: "Действие"
+  recap: "Резюме"
+  totalht: "Общая сумма без НДС"
+  tva: "НДС"
+  coffee: "Кофейный налог"
+  totalttc: "Итого с НДС"
+  buttonorder: "Заказать"
+  emptyordertext: "Пожалуйста, добавьте товары, чтобы оформить заказ."
+  empty: "Ваша корзина пуста"
+  alert:
+    connected: "Вы должны быть подключены, чтобы просмотреть корзину."
+    success: "Заказ подтвержден! Спасибо за ваш заказ."
+    error: "Произошла ошибка при подтверждении."
+    forbidden: "У вас нет доступа к этой странице."

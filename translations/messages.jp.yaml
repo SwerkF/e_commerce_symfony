@@ -1,0 +1,54 @@
+accueil:
+  buttonaddnew: "新しい製品を追加"
+  title: "香水のラインナップ"
+  buttonaddcart: "カートに追加"
+  buttondetail: "製品の詳細"
+nav:
+
+
+profile:
+  login:
+    signin: "ログイン"
+  title: "プロフィール"
+  titlealternative: "プロフィールを編集"
+  subtitle1: "あなたの情報"
+  firstname: "名前"
+  lastname: "姓"
+  username: "ユーザー名"
+  email : "メール"
+  password: "パスワード"
+  subtitle2: "あなたの注文"
+  numcommand: "注文番号"
+  datecommand: "注文日"
+  price: "金額"
+  precise: "明示する"
+  buttonedit: "プロフィールを編集"
+  actions: "アクション"
+  empty: "注文がありません"
+  buttonsuccess: "確認"
+  alert:
+    disconnected: "切断されました"
+    connected: "カートを見るにはログインする必要があります"
+
+panier:
+  title: "カート"
+  titlealternative: "ご注文"
+  product: "製品"
+  productcount: "商品数："
+  quantity: "数量"
+  price: "価格"
+  total: "合計"
+  action: "アクション"
+  recap: "概要"
+  totalht: "合計（税抜き）"
+  tva: "消費税"
+  coffee: "カフェ税"
+  totalttc: "合計（税込み）"
+  buttonorder: "注文"
+  emptyordertext: "注文するには商品を追加してください"
+  empty: "カートは空です"
+  alert:
+    connected: "カートを見るにはログインする必要があります"
+    success: "注文が確定しました！ご注文ありがとうございます"
+    error: "確定中にエラーが発生しました"
+    forbidden: "このページにアクセスできません"

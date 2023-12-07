@@ -1,44 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Votre profile{% endblock %}
+{% block title %}{{ 'profile.titlealternative'|trans }}{% endblock %}
 
 {% block body %}
 
-    <h1>Edit Profile</h1>
     {{ form_start(form) }}
-    <div class="row">
-        <div class="d-flex flex-column align-items-center">
-            {% if app.user.getProfilePicture() is not empty %}
-                <img src="{{ asset('uploads/images/profile_pictures/' ~ app.user.getProfilePicture()) }}" class="rounded-circle" alt="Profile picture" style="object-fit: contain" width="150px" height="150px"/>
-            {% else %}
-                <img src="{{ asset('uploads/images/profile_pictures/default.jpg') }}" class="rounded-circle" alt="Profile picture" style="object-fit: contain" width="150px" height="150px"/>
-            {% endif %}
-            {{ form_row(form.profile_picture) }}
-            <div class="username">
-                {{ form_row(form.username) }}
-            </div>
+    <div class="card mt-4">
+        <div class="card-header">
+            <h1>{{ 'profile.titlealternative'|trans }}</h1>
         </div>
-        <div class="d-flex flex-row justify-content-around mt-4">
-            <div class="prenom">
-                {{ form_row(form.prenom) }}
+        <div class="card-body">
+            <div class="d-flex flex-column align-items-center">
+                {% if app.user.getProfilePicture() is not empty %}
+                    <img src="{{ asset('uploads/images/profile_pictures/' ~ app.user.getProfilePicture()) }}" class="rounded-circle" alt="Profile picture" style="object-fit: contain" width="300px" height="300px"/>
+                {% else %}
+                    <img src="{{ asset('uploads/images/profile_pictures/default.jpg') }}" class="rounded-circle" alt="Profile picture" style="object-fit: contain" width="300px" height="300px"/>
+                {% endif %}
+                {{ form_row(form.profile_picture) }}
             </div>
-            <div class="nom">
-                {{ form_row(form.nom) }}
+            <div class="d-flex flex-row justify-content-around mt-4 gap-1">
+                <div class="col-6">
+                    <label for="username">{{ 'profile.username'|trans }}:</label>
+                    {{ form_widget(form.username) }}
+                </div>
+                <div class="email col-6">
+                    <label for="email">{{ 'profile.email'|trans }}:</label>
+                    {{ form_widget(form.email) }}
+                </div>
             </div>
+            <div class="d-flex flex-row justify-content-around mt-4 gap-1">
+                <div class="prenom col-6">
+                    <label for="email">{{ 'profile.firstname'|trans }}:</label>
+                    {{ form_widget(form.prenom) }}
+                </div>
+                <div class="nom col-6">
+                    <label for="email">{{ 'profile.lastname'|trans }}:</label>
+                    {{ form_widget(form.nom) }}
+                </div>
+            </div>
+            <input class="btn btn-primary mt-4 w-100" type="submit" value={{ 'profile.buttonsuccess'|trans }} />
         </div>
-        <div class="d-flex flex-row justify-content-around mt-4">
-            <div class="email">
-                {{ form_row(form.email) }}
-            </div>
-            <div class="email">
-                {{ form_row(form.password) }}
-            </div>
-        </div>
-        <input class="btn btn-primary" type="submit" value="Confirm" />
     </div>
     {{ form_end(form) }}
-    
-
 
 {% endblock %}
 
