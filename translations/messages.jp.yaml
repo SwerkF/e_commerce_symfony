@@ -5,7 +5,6 @@ accueil:
   buttondetail: "製品の詳細"
 nav:
 
-
 profile:
   login:
     signin: "ログイン"
@@ -15,40 +14,59 @@ profile:
   firstname: "名前"
   lastname: "姓"
   username: "ユーザー名"
-  email : "メール"
+  email: "メールアドレス"
   password: "パスワード"
   subtitle2: "あなたの注文"
   numcommand: "注文番号"
   datecommand: "注文日"
   price: "金額"
-  precise: "明示する"
+  precise: "詳細"
   buttonedit: "プロフィールを編集"
   actions: "アクション"
   empty: "注文がありません"
   buttonsuccess: "確認"
   alert:
-    disconnected: "切断されました"
-    connected: "カートを見るにはログインする必要があります"
+    disconnected: "切断されました。"
+    connected: "カートを表示するにはログインする必要があります。"
 
+input:
+  mime: "適切な画像タイプを選択し、サイズを確認してください。"
 panier:
   title: "カート"
   titlealternative: "ご注文"
   product: "製品"
-  productcount: "商品数："
+  productcount: "アイテム数："
   quantity: "数量"
   price: "価格"
   total: "合計"
   action: "アクション"
   recap: "概要"
-  totalht: "合計（税抜き）"
+  totalht: "税抜き合計"
   tva: "消費税"
-  coffee: "カフェ税"
-  totalttc: "合計（税込み）"
-  buttonorder: "注文"
-  emptyordertext: "注文するには商品を追加してください"
+  coffee: "コーヒー税"
+  totalttc: "税込み合計"
+  buttonorder: "注文する"
+  emptyordertext: "注文を完了するには製品を追加してください。"
   empty: "カートは空です"
   alert:
-    connected: "カートを見るにはログインする必要があります"
-    success: "注文が確定しました！ご注文ありがとうございます"
-    error: "確定中にエラーが発生しました"
-    forbidden: "このページにアクセスできません"
+    connected: "カートを表示するにはログインする必要があります。"
+    success: "注文が確定しました！ご購入いただきありがとうございます。"
+    error: "注文の確定中にエラーが発生しました。"
+    forbidden: "このページにアクセスする権限がありません。"
+titlemdp: "パスワードの変更"    
+btneditmdr: "編集"
+mdp: "新しいパスワード"
+rmdp: "パスワードを繰り返す"
+omdp: "古いパスワード"
+errorlenmdp: "パスワードは8文字以上である必要があります"
+erroragreeterm: "利用規約に同意する必要があります。"
+errornomdp: "パスワードを指定してください。"
+mimetyperror: "有効な画像ファイルを送信する必要があります。"
+
+error:
+  forbidden: 
+    title: "エラー403、アクセスが拒否されました。"
+    message: "このページにアクセスする権限がありません。<a href='{{ path('app_accueil') }}>ホームに戻る</a>"
+  notfound:
+    title: "エラー404、ページが見つかりません。"
+    message: "要求されたページは見つかりませんでした。<a href='{{ path('app_accueil') }}>ホームに戻る</a>"
