@@ -1,22 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ContenuPanier{% endblock %}
+{% block title %}{{ 'contenupanier.title'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>ContenuPanier</h1>
+    <h1>{{ 'contenupanier.title'|trans }}</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>{{ 'produit.id'|trans }}</th>
                 <td>{{ contenu_panier.id }}</td>
             </tr>
             <tr>
-                <th>Quantite</th>
+                <th>{{ 'produit.quantity'|trans }}</th>
                 <td>{{ contenu_panier.quantite }}</td>
             </tr>
             <tr>
-                <th>Date_ajout</th>
+                <th>{{ 'produit.date'|trans }}</th>
                 <td>{{ contenu_panier.dateAjout ? contenu_panier.dateAjout|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>

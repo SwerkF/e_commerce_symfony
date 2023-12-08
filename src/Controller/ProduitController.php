@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/{_locale}/produit')]
 class ProduitController extends AbstractController
@@ -25,36 +26,48 @@ class ProduitController extends AbstractController
     }
 
     #[Route('/new', name: 'app_produit_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
     {
+        // Récupération de l'utilisateur 
         $user = $this->getUser();
+
+        // Redirection si aucun utilisateur est connecté
         if($user == null)
         {
+
+            // Message flash
             $this->addFlash(
                 'danger',
-                'Vous devez être connecté pour ajouter un produit'
+                $translator->trans('produit.alert.connected')
             );
             return $this->redirectToRoute('app_login');
         }
 
+        // Redirection si l'utilisateur n'a pas les droits
         if(!in_array('ROLE_SUPER_ADMIN', $user->getRoles()) && !in_array('ROLE_ADMIN', $user->getRoles()))
         {
+            // Message flash
             $this->addFlash(
                 'danger',
-                'Vous n\'avez pas les droits pour ajouter un produit'
+                $translator->trans('produit.alert.forbidden')
             );
             return $this->redirectToRoute('app_produit_index');
         }
 
+        // Formulaire
         $produit = new Produit();
         $form = $this->createForm(ProduitType::class, $produit);
+
+        // Traitement du formulaire
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // Traitement de l'image
             $imageFile = $form->get('photo')->getData();
 
             if($imageFile)
             {
+                // Nouveau nom de fichier
                 $newFilename = uniqid().'.'.$imageFile->guessExtension();
                 try {
                     $imageFile->move(
@@ -64,11 +77,19 @@ class ProduitController extends AbstractController
                 } catch (FileException $e) {
                 }
 
+                // Enregistrement du nom de fichier
                 $produit->setPhoto($newFilename);
             }
 
+            // Enregistrement du produit
             $entityManager->persist($produit);
             $entityManager->flush();
+
+            // Message flash
+            $this->addFlash(
+                'success',
+                $translator->trans('produit.alert.success')
+            );
 
             return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -88,32 +109,74 @@ class ProduitController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_produit_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
     {
+
+        // Récupération de l'utilisateur
         $user = $this->getUser();
+
+        // Redirection si aucun utilisateur est connecté.
         if($user == null)
         {
             $this->addFlash(
                 'danger',
-                'Vous devez être connecté pour modifier un produit'
+                $translator->trans('produit.alert.connected')
             );
             return $this->redirectToRoute('app_login');
         }
 
+        // Redirection si l'utilisateur n'a pas les droits
         if(!in_array('ROLE_SUPER_ADMIN', $user->getRoles()) && !in_array('ROLE_ADMIN', $user->getRoles()))
         {
             $this->addFlash(
                 'danger',
-                'Vous n\'avez pas les droits pour modifier un produit'
+                $translator->trans('produit.alert.forbidden')
             );
             return $this->redirectToRoute('app_produit_index');
         }
 
+        // Formulaire
         $form = $this->createForm(ProduitType::class, $produit);
-        $form->handleRequest($request);
 
+        // Traitement du formulaire
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            
+           // Traitement de l'image
+           $imageFile = $form->get('photo')->getData();
+
+           if($imageFile)
+           {
+                // Nouveau nom de fichier
+                $newFilename = uniqid().'.'.$imageFile->guessExtension();
+                try {
+                    $imageFile->move(
+                        $this->getParameter('product_photo_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+
+                }
+                // Supprimer l'ancienne image
+                $oldFilename = $produit->getPhoto();
+                if($oldFilename != null)
+                {
+                    unlink(__DIR__.'/../../public/uploads/images/product_photo/'.$oldFilename);
+                }
+
+                // Enregistrement du nom de fichier
+                $produit->setPhoto($newFilename);
+           }
+
+            // Enregistrement du produit
+            $entityManager->persist($produit);
             $entityManager->flush();
+
+            // Message flash
+            $this->addFlash(
+                'success',
+                $translator->trans('produit.alert.edited')
+            );
 
             return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -125,23 +188,27 @@ class ProduitController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_produit_delete', methods: ['POST'])]
-    public function delete(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Produit $produit, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
     {
+        // Récupération de l'utilisateur
         $user = $this->getUser();
+
+        // Redirection si aucun utilisateur est connecté.
         if($user == null)
         {
             $this->addFlash(
                 'danger',
-                'Vous devez être connecté pour modifier un produit'
+                $translator->trans('produit.alert.connected')
             );
             return $this->redirectToRoute('app_login');
         }
 
+        // Redirection si l'utilisateur n'a pas les droits
         if(!in_array('ROLE_SUPER_ADMIN', $user->getRoles()) && !in_array('ROLE_ADMIN', $user->getRoles()))
         {
             $this->addFlash(
                 'danger',
-                'Vous n\'avez pas les droits pour modifier un produit'
+                $translator->trans('produit.alert.forbidden')
             );
             return $this->redirectToRoute('app_produit_index');
         }
@@ -149,6 +216,12 @@ class ProduitController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->request->get('_token'))) {
             $entityManager->remove($produit);
             $entityManager->flush();
+
+            // Message flash
+            $this->addFlash(
+                'success',
+                $translator->trans('produit.alert.deleted')
+            );
         }
 
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);

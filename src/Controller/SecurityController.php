@@ -14,12 +14,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Repository\UserRepository;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SecurityController extends AbstractController
 {
     // Connexion
     #[Route(path: '/{_locale}/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils, TranslatorInterface $translator): Response
     {
         // Redirection si un utilisateur est connecté
         if ($this->getUser()) {
@@ -34,18 +35,20 @@ class SecurityController extends AbstractController
 
     // Déconnexion
     #[Route(path: '/{_locale}/logout', name: 'app_logout')]
-    public function logout(): void
+    public function logout()
     {
         // Message flash
         $this->addFlash(
             'success',
-            'Déconnecté.'
+            $translator->trans('register.alert.disconnected')
         );
+
+        return $this->redirectToRoute('app_accueil');
     }
 
     // Consultation de notre profile
     #[Route(path: '/{_locale}/profile', name: 'app_profile')]
-    public function profile(EntityManagerInterface $em)
+    public function profile(EntityManagerInterface $em,  TranslatorInterface $translator)
     {
 
         // Redirection si aucun utilisateur est connecté
@@ -55,7 +58,7 @@ class SecurityController extends AbstractController
             // Message flash
             $this->addFlash(
                 'danger',
-                'Vous devez être connecté pour accéder à cette page.'
+                $translator->trans('register.alert.connected')
             );
 
             return $this->redirectToRoute('app_login');
@@ -69,7 +72,7 @@ class SecurityController extends AbstractController
 
     // Modification du profile
     #[Route(path: '/{_locale}/profile/edit', name: 'app_profile_edit')]
-    public function edit(EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $userPasswordHasher)
+    public function edit(EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $userPasswordHasher,  TranslatorInterface $translator)
     {
         // Redirection si aucun utilisateur est connecté
         $profile = $this->getUser();
@@ -78,7 +81,7 @@ class SecurityController extends AbstractController
             // Message flash
             $this->addFlash(
                 'danger',
-                'Vous devez être connecté pour accéder à cette page.'
+                $translator->trans('register.alert.forbidden')
             );
 
             return $this->redirectToRoute('app_login');
@@ -123,7 +126,7 @@ class SecurityController extends AbstractController
             // Message flash
             $this->addFlash(
                 'success',
-                'Profil modifié.'
+                $translator->trans('register.alert.edited')
             );
 
             return $this->redirectToRoute('app_profile');
@@ -133,8 +136,36 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/users/admin', name: 'app_clientList')]
-    public function listUsers(UserRepository $userRepository)
+    public function listUsers(UserRepository $userRepository,  TranslatorInterface $translator)
     {
+
+        // Récupération de l'utilisateur
+        $user = $this->getUser();
+
+        // Redirection si l'utilisateur n'est pas connecté
+        if($user == null)
+        {
+            // Message flash
+            $this->addFlash(
+                'danger',
+                $translator->trans('register.alert.connected')
+            );
+
+            return $this->redirectToRoute('app_login');
+        }
+
+        // Vérification des permissions
+        if($user->getRoles()[0] != 'ROLE_SUPER_ADMIN')
+        {
+            // Message flash
+            $this->addFlash(
+                'danger',
+                $translator->trans('register.alert.forbidden')
+            );
+
+            return $this->redirectToRoute('app_produit_index');  
+        }
+
         $users = $userRepository->findAll();
 
         return $this->render('panier/admin/showUser.html.twig', [
@@ -144,7 +175,7 @@ class SecurityController extends AbstractController
 
     // Modification du mot de passe
     #[Route(path: '/{_locale}/profile/password', name: 'app_password_edit')]
-    public function editPassword(EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $userPasswordHasher)
+    public function editPassword(EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $userPasswordHasher,  TranslatorInterface $translator)
     {
         // Redirection si aucun utilisateur est connecté
         $profile = $this->getUser();
@@ -153,7 +184,7 @@ class SecurityController extends AbstractController
             // Message flash
             $this->addFlash(
                 'danger',
-                'Vous devez être connecté pour accéder à cette page.'
+                $translator->trans('register.alert.connected')
             );
 
             return $this->redirectToRoute('app_login');
@@ -172,7 +203,7 @@ class SecurityController extends AbstractController
                 // Message flash
                 $this->addFlash(
                     'danger',
-                    'Mot de passe incorrect.'
+                    $translator->trans('errmdp')
                 );
 
                 return $this->redirectToRoute('app_password_edit');
@@ -193,7 +224,7 @@ class SecurityController extends AbstractController
             // Message flash
             $this->addFlash(
                 'success',
-                'Mot de passe modifié.'
+                $translator->trans('mdpedited')
             );
 
             return $this->redirectToRoute('app_profile');
