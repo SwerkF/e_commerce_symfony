@@ -34,6 +34,10 @@ class Produit
     #[ORM\OneToMany(mappedBy: 'produit', targetEntity: ContenuPanier::class)]
     private Collection $contenuPaniers;
 
+    #[ORM\ManyToOne(inversedBy: 'produits')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Categorie $Categorie = null;
+
     public function __construct()
     {
         $this->contenuPaniers = new ArrayCollection();
@@ -130,6 +134,18 @@ class Produit
                 $contenuPanier->setProduit(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->Categorie;
+    }
+
+    public function setCategorie(?Categorie $Categorie): static
+    {
+        $this->Categorie = $Categorie;
 
         return $this;
     }

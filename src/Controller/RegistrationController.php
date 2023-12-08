@@ -17,7 +17,7 @@ use App\Repository\UserRepository;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('/register', name: 'app_register')]
+    #[Route('/{_locale}/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
@@ -55,7 +55,7 @@ class RegistrationController extends AbstractController
     {
         $users = $userRepository->findAll();
 
-        return $this->render('panier/admin/showUser.htmltwig', [
+        return $this->render('panier/admin/showUser.html.twig', [
             'users' => $users,
         ]);
     }

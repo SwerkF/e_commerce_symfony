@@ -81,6 +81,12 @@ class ContenuPanierController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_contenu_panier_index', [], Response::HTTP_SEE_OTHER);
+        // flash message
+        $this->addFlash(
+            'success',
+            'Produit supprimé du panier.'
+        );
+
+        return $this->redirectToRoute('app_panier_index', [], Response::HTTP_SEE_OTHER);
     }
 }

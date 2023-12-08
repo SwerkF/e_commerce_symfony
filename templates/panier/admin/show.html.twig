@@ -8,7 +8,7 @@
         <table class="table table-stripped">
             <thead>
                 <tr>
-                    <th>Username</th>
+                    <th>Nom d'utilisateur</th>
                     <th>Numéro commande</th>
                     <th>Contenu</th>
                 </tr>
@@ -16,7 +16,7 @@
             <tbody>
                 {% for commande in paniers %}
                     <tr>
-                        <td>{{commande.id}}</td>
+                        <td>{{commande.utilisateur.username}}</td>
                         <td>{{commande.getDateAchat()|date('d/m/Y')}}</td>
                         <td> 
                             {% for contenu in commande.getContenuPaniers() %}
