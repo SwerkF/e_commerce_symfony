@@ -61,6 +61,7 @@ mdp: "Nouveau mot de passe"
 rmdp: "Répétez le mot de passe"
 omdp: "Ancien mot de passe"
 errorlenmdp: "Votre mot de passe doit faire minimum 8 caractères"
+agreetermcond: "J'accepte les conditions générales"
 erroragreeterm: "Vous devez accepter les conditions générales."
 errornomdp: "Veuillez renseigner un mot de passe."
 errmdp: "Mot de passe incorrect"
@@ -68,6 +69,8 @@ mdpedited: "Mot de passe modifié"
 mimetyperror: "Vous devez envoyer un fichier image valide."
 regusername: "Nom d'utilisateur"
 regemail: "Email"
+alreadyhaveaccount: "Vous avez déjà un compte ?"
+notaccount: "Vous n'avez pas de compte ?"
 
 error:
   forbidden: 

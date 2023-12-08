@@ -1,16 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'categorie.list'|trans }}{% endblock %}
+{% block title %}{{ 'categorie.create'|trans }}{% endblock %}
 
 {% block body %}
+    <a style="text-decoration: none; color: black" href="{{ path('app_produit_index') }}"><i class="fi fi-rr-arrow-small-left" style="font-size: 30px;"></i></a>
     <div class="card">
         <div class="card-header">
-            <h1 class="text-center"> {{ 'categorie.create'|trans }}</h1>
+            <h1 class="text-center">{{ 'categorie.create'|trans }}</h1>
         </div>
         <div class="card-body">
             {{ include('categorie/_form.html.twig') }}
         </div>
     </div>
-
-    <a href="{{ path('app_categorie_index') }}">back to list</a>
 {% endblock %}
