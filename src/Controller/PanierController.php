@@ -78,9 +78,7 @@ class PanierController extends AbstractController
                 if($produit->getStock() >= $contenu->getQuantite())
                 {
                     $produit->setStock($produit->getStock() - $contenu->getQuantite());
-
                     $em->persist($produit);
-                    $em->flush();
                 }
                 else {
                     // Message flash
@@ -98,7 +96,6 @@ class PanierController extends AbstractController
 
             // Enregistrement en base de données
             $em->persist($panier);
-            $em->flush();
             
             // Message flash
             $this->addFlash(
@@ -115,12 +112,14 @@ class PanierController extends AbstractController
             );
         }
 
+        // Push des modifications
+        $em->flush();
         // Redirection
         return $this->redirectToRoute('app_accueil');
     }
 
     #[Route('/quantite/{id}/{bool}', name:"app_panier_update_quantite")]
-    public function addQuantite(Produit $produit, EntityManagerInterface $em, bool $bool): Response
+    public function addQuantite(Produit $produit, EntityManagerInterface $em, bool $bool, TranslatorInterface $translator): Response
     {
 
         // Redirection si aucun utilisateur est connecté
@@ -130,7 +129,7 @@ class PanierController extends AbstractController
             // Message flash
             $this->addFlash(
                 'danger',
-                'Vous devez être connecté pour accéder à cette page.'
+                $translator->trans('panier.alert.connected')
             );
 
             return $this->redirectToRoute('app_login');
@@ -154,13 +153,12 @@ class PanierController extends AbstractController
                     {
                         $contenuPanier->setQuantite($contenuPanier->getQuantite() + 1);
                         $em->persist($contenuPanier);
-                        $em->flush();
                     }
                     else {
                         // Message flash
                         $this->addFlash(
                             'danger',
-                            'Le produit n\'est plus en stock.'
+                            $translator->trans('panier.alert.nostock')
                         );
                     }
                 }
@@ -171,29 +169,30 @@ class PanierController extends AbstractController
                     {
                         $contenuPanier->setQuantite($contenuPanier->getQuantite() - 1);
                         $em->persist($contenuPanier);
-                        $em->flush();
                     }
                     else {
                         // supprimer 
                         $em->remove($contenuPanier);
-                        $em->flush();
 
                         // Message flash
                         $this->addFlash(
                             'success',
-                            'Le produit a été supprimé du panier.'
+                            $translator->trans('panier.alert.deleted')
                         );
                     }
                 }
             }
         }
+        
+        // Push des modifications
+        $em->flush();
 
         return $this->redirectToRoute('app_panier_index');
     }
 
     // Route pour consulter les paniers non achetés
     #[Route('/admin', name: 'app_panier_admin_show', methods: ['GET'])]
-    public function adminList(EntityManagerInterface $em): Response
+    public function adminList(EntityManagerInterface $em, TranslatorInterface $translator): Response
     {
 
         // Redirection si aucun utilisateur est connecté
@@ -203,7 +202,7 @@ class PanierController extends AbstractController
             // Message flash
             $this->addFlash(
                 'danger',
-                'Vous devez être connecté pour accéder à cette page.'
+                $translator->trans('panier.alert.connected')
             );
 
             return $this->redirectToRoute('app_login');
@@ -214,7 +213,7 @@ class PanierController extends AbstractController
         {
             $this->addFlash(
                 'danger',
-                'Vous n\'avez pas accès à cette page.'
+                $translator->trans('panier.alert.forbidden')
             );
 
             return $this->redirectToRoute('app_accueil');
@@ -230,7 +229,7 @@ class PanierController extends AbstractController
 
     // Route pour consulter nos commandes
     #[Route('/{id}', name: 'app_panier_show', methods: ['GET'])]
-    public function show(Panier $panier): Response
+    public function show(Panier $panier, TranslatorInterface $translator): Response
     {
         // Redirection si aucun utilisateur est connecté
         $profile = $this->getUser();
@@ -238,7 +237,7 @@ class PanierController extends AbstractController
         {
             $this->addFlash(
                 'danger',
-                'Vous devez être connecté pour accéder à cette page.'
+                $translator->trans('panier.alert.connected')
             );
 
             return $this->redirectToRoute('app_login');
@@ -250,7 +249,7 @@ class PanierController extends AbstractController
             // Message Flash
             $this->addFlash(
                 'danger',
-                'Vous n\'avez pas accès à cette page.'
+                $translator->trans('panier.alert.forbidden')
             );
 
             return $this->redirectToRoute('app_accueil');
@@ -265,35 +264,47 @@ class PanierController extends AbstractController
 
  
     #[Route('/ajouter/{id}', name: 'app_panier_new', methods: ['GET', 'POST'])]
-    public function new(Produit $produit, int $id, Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Produit $produit, int $id, Request $request, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
     {
+        // Récupération de l'utilisateur
         $user = $this->getUser();
+        if ($user == null) {
 
-        if (!$user) {
-            $this->addFlash('error', 'Vous devez être connecté pour ajouter un produit au panier.');
+            // Message flash
+            $this->addFlash('error', $translator->trans('panier.alert.connected'));
+            
+            // Redirection de l'utilisateur
             return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
         }
 
+        // Récupérer le panier de l'utilisateur
         $panier = $entityManager->getRepository(Panier::class)->findOneBy(['utilisateur' => $user, 'status' => 0]);
+        
+        // Si le panier n'existe pas, on le crée
         if(!$panier){
             $panier = new Panier();
             $panier->setUtilisateur($user);
             $panier->setStatus(0);
+            
+            $entityManager->persist($panier);
         }
-        $entityManager->persist($panier);
-        $entityManager->flush();
     
+        // Récupérer le contenu du panier
         $contenuPanier = $panier->getContenuPaniers();
+        
         $trouve = 0;
         $i = 0;
+
+        // Recherche du produit dans le panier
         while($i < count($contenuPanier) && !$trouve)
         {
             $item = $contenuPanier[$i];
+
+            // Si le produit exsite, on l'incrémente de 1
             if($item->getProduit() == $produit)
             {
                 $item->setQuantite($item->getQuantite() + 1);
                 $entityManager->persist($item);
-                $entityManager->flush();
                 $trouve = 1;
             } else 
             {
@@ -301,6 +312,8 @@ class PanierController extends AbstractController
             }
         }
 
+
+        // Si le produit n'existe pas
         if (!$trouve) {
             // Ajouter un nouveau produit au panier
             $contenuPanier = new ContenuPanier();
@@ -309,10 +322,13 @@ class PanierController extends AbstractController
                         ->setQuantite(1)
                         ->setPanier($panier);
             $entityManager->persist($contenuPanier);
-            $entityManager->flush();
         } 
 
-        $this->addFlash('success', "Le produit a été ajouté au panier.");
+        // Enregistrement en base de données
+        $entityManager->flush();
+
+        // Message flash
+        $this->addFlash('success',  $translator->trans('panier.alert.added'));
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);        
     }
 /*

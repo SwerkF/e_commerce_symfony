@@ -1,10 +1,3 @@
-accueil:
-  buttonaddnew: "Ajouter un nouveau produit"
-  title: "Gamme de parfum"
-  buttonaddcart: "Ajout au panier"
-  buttondetail: "Plus de détails sur le produit"
-nav:
-
 profile:
   login:
     signin: "Connexion"
@@ -56,6 +49,8 @@ panier:
     forbidden: "Vous n'avez pas accès à cette page."
     empty: "Votre panier est vide."
     nostock: "Un produit en stock n'est plus disponible: "
+    deleted: "Produit supprimé du panier."
+    added: "Produit ajouté au panier."
     
 titlemdp: "Modification du mot de passe"    
 btneditmdr: "Modifier"
@@ -65,7 +60,11 @@ omdp: "Ancien mot de passe"
 errorlenmdp: "Votre mot de passe doit faire minimum 8 caractères"
 erroragreeterm: "Vous devez accepter les conditions générales."
 errornomdp: "Veuillez renseigner un mot de passe."
+errmdp: "Mot de passe incorrect"
+mdpedited: "Mot de passe modifié"
 mimetyperror: "Vous devez envoyer un fichier image valide."
+regusername: "Nom d'utilisateur"
+regemail: "Email"
 
 error:
   forbidden: 
@@ -74,4 +73,68 @@ error:
   notfound:
     title: "Erreur 404, page non trouvée."
     message: "La page demandée n'a pas été trouvée. <a href='{{ path('app_accueil') }}>Retourner à l'accueil</a>"
-  
+
+nav:
+  home: "Accueil"
+  produit: "Produits"
+  addproduit: "Ajouter un produit"
+  addcategorie: "Ajouter une catégorie"
+  listuser: "Liste des utilisateurs"
+  listcommand: "Liste des commandes"
+  cart: "Panier"
+  login: "Se connecter"
+  logout: "Se déconnecter"
+  register: "S'inscrire"
+
+footer: 
+  arr: "Tous droit réservés"
+
+accueil: 
+  title: "Accueil"
+  gamme: "Gamme de parfum"
+  subtitle: "Bienvenue sur notre site de vente de parfum."
+  buttonshow: "Voir les produits"
+  buttonabout: "En savoir plus..."
+
+produit:
+  title: "Il n'y a plus qu'à choisir le produit !"
+  buttonadd: "Ajouter un nouveau produit"
+  buttonadd2cart: "Ajouter au panier"
+  buttondetail: "Plus de détails"
+  more: "Voir plus de produit"
+  empty: "Il n'y a aucun produit."
+  buttonedit: "Modifier"
+  buttondelete: "Supprimer"
+  buttonsave: "Sauvegarder"
+  create: "Création de produit"
+  produittitle: "Produits"
+  edit: "Edition de produit"
+  alert:
+    connected: "Vous devez être connecté pour consulter votre panier."
+    success: "Produit crée !"
+    forbidden: "Vous n'avez pas accès à cette page."
+    deleted: "Produit supprimé."
+    edited: "Produit modifié."
+
+contenuPanier: 
+  title: "Contenu panier"
+  id: "ID"
+  quantity: "Quantité"
+  date: "Date d'ajout"
+  actions: "Actions"
+
+categorie:
+  alert:
+    added: "Catégorie crée!"
+    edited: "Catégorie modifiée!"
+    connected: "Vous devez être connecté."
+    deleted: "Catégorie supprimée!"
+    forbidden: "Vous n'avez pas accès à cette page."
+
+register:
+  alert:
+    success: "Votre compte a bien été crée"
+    connected: "Vous devez être connecté pour consulter votre panier."
+    forbidden: "Vous n'avez pas accès à cette page."
+    disconnected: "Déconnecté"
+    edited: "Profil mis à jour!"

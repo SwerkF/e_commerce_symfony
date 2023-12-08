@@ -19,11 +19,11 @@ class ContenuPanierType extends AbstractType
             ->add('date_ajout')
             ->add('produit', EntityType::class, [
                 'class' => Produit::class,
-'choice_label' => 'id',
+                'choice_label' => 'id',
             ])
             ->add('panier', EntityType::class, [
                 'class' => Panier::class,
-'choice_label' => 'id',
+                'choice_label' => 'id',
             ])
         ;
     }

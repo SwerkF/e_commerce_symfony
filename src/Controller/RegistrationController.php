@@ -18,12 +18,14 @@ use App\Repository\UserRepository;
 class RegistrationController extends AbstractController
 {
     #[Route('/{_locale}/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
     {
+        // Initialisation de l'utilisateur
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
+        
+        // Traitement du formulaire
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
@@ -33,9 +35,10 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            // Enregistrement en base de données
             $entityManager->persist($user);
             $entityManager->flush();
-            $this->addFlash('success', 'Votre Compte à bien été créé');
+            $this->addFlash('success', $translator->trans('register.alert.success'));
             // do anything else you need here, like send an email
 
             return $userAuthenticator->authenticateUser(
@@ -53,7 +56,37 @@ class RegistrationController extends AbstractController
     #[Route('/client', name: 'app_clientList')]
     public function listUsers(UserRepository $userRepository)
     {
-        $users = $userRepository->findAll();
+
+        // Récupération de l'utilisateur
+        $user = $this->getUser();
+
+        // Redirection si l'utilisateur n'est pas connecté
+        if($user == null)
+        {
+            // Message flash
+            $this->addFlash(
+                'danger',
+                $translator->trans('register.alert.connected')
+                
+            );
+
+            return $this->redirectToRoute('app_login');
+        }
+
+        // Redirection si l'utilisateur n'a pas les droits
+        if($user->getRoles()[0] != 'ROLE_SUPER_ADMIN')
+        {
+            // Message flash
+            $this->addFlash(
+                'danger',
+                $translator->trans('register.alert.forbidden')
+            );
+
+            return $this->redirectToRoute('app_produit_index');  
+        }
+
+        // Récupération des utilisateurs
+        $users = $userRepository->findBy([], ['id' => 'DESC']);
 
         return $this->render('panier/admin/showUser.html.twig', [
             'users' => $users,
