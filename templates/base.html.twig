@@ -61,12 +61,15 @@
                         <li class="nav-item">
                             <a class=" btn btn-dark" href="{{ path('app_panier_index') }}"> <i class="fi fi-rr-shopping-cart"></i> {{ 'nav.cart'|trans }} </a>
                         </li>  
-                        <li class="nav-item">
+                        <li class="nav-item d-flex flex-row">
                              {% if app.user and app.user.getProfilePicture() %}
                                 <a class="nav-link" href={{ path('app_profile') }}>
                                     <img src="{{ asset('uploads/images/profile_pictures/' ~ app.user.getProfilePicture()) }}" class="rounded-circle" style="object-fit: contain" width="40px" height="40px" alt="Photo de profil">
                                 </a>
                             {% else %}
+                                <a class="nav-link" href={{ path('app_profile') }}>
+                                    <i class="fi fi-rr-user"></i>
+                                 </a>
                             {% endif %}
                             {% if app.user and app.user.username %}
                                 <a class="nav-link" href={{ path('app_profile') }}>
