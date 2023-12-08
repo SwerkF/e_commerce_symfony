@@ -40,11 +40,13 @@ class PanierController extends AbstractController
         $panier = $em->getRepository(Panier::class)->findOneBy(['utilisateur' => $this->getUser(), 'status'=>0]);
 
         // Si panier inexistant, le créer
-        $panier = new Panier();
-
-        $panier->setUtilisateur($user)->setStatus(0);
-        $em->persist($panier);
-        $em->flush();
+        if(!$panier)
+        {
+            $panier = new Panier();
+            $panier->setUtilisateur($user)->setStatus(0);
+            $em->persist($panier);
+            $em->flush();
+        }
 
         // Redirection
         return $this->render('panier/index.html.twig', [

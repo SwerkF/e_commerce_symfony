@@ -17,12 +17,16 @@
                 {{ form_errors(registrationForm) }}
                 <label class="mt-2" for="username">{{ 'profile.username'|trans }}</label>
                 {{ form_widget(registrationForm.username) }}
+                {{ form_errors(registrationForm.username) }}
                 <label class="mt-2" for="username">{{ 'profile.email'|trans }}</label>
                 {{ form_widget(registrationForm.email) }}
+                {{ form_errors(registrationForm.email) }}
                 {{ form_widget(registrationForm.plainPassword, { label: 'Password',
                     attr: { autocomplete: 'new-password' }
                 }) }}
+                {{ form_errors(registrationForm.plainPassword) }}
                 {{ form_widget(registrationForm.agreeTerms) }}
+                {{ form_errors(registrationForm.agreeTerms) }}
                 <button type="submit" class="btn btn-dark w-100 mt-3">{{ 'nav.register'|trans }}</button>
 
             {{ form_end(registrationForm) }}

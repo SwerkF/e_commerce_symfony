@@ -135,7 +135,7 @@ class SecurityController extends AbstractController
         return $this->render('security/edit.html.twig', ['form' => $form->createView()]);
     }
 
-    #[Route('/users/admin', name: 'app_clientList')]
+    #[Route('/{_locale}/users/admin', name: 'app_clientList')]
     public function listUsers(UserRepository $userRepository,  TranslatorInterface $translator)
     {
 
@@ -166,7 +166,7 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('app_produit_index');  
         }
 
-        $users = $userRepository->findAll();
+        $users = $userRepository->findBy([], ['id' => 'DESC']);
 
         return $this->render('security/admin/show.html.twig', [
             'users' => $users,

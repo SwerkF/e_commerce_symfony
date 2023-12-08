@@ -22,7 +22,7 @@
     </head>
    <body>
         <nav class="navbar navbar-expand-lg navstyle">
-            <a class="navbar-brand fw-bold" href="#">Urban Chic</a>
+            <a class="navbar-brand fw-bold" href="{{ path('app_accueil') }}">Urban Chic</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -100,13 +100,16 @@
         <div class="container mt-3">
             {% block body %}{% endblock %}
         </div>
-
-    </body>
-        <footer class="bg-light text-center py-3 mt-4" style="position: absolute; width: 100%; bottom: 0; position: sticky ">
-            <div class="container">
+        
+    <div class="footer">
+        <div class="container">
             <p>&copy; 2023 Urban Chic. {{ 'footer.arr'|trans }}.</p>
-            </div>
-        </footer>
+        </div>
+    </div>
+        
+    </body>
+    
+
     <script type="text/javascript">
         AOS.init()
     </script>

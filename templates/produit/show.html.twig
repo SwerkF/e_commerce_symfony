@@ -1,44 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Produit{% endblock %}
+{% block title %}{{ 'nav.produit'|trans }}{% endblock %}
 
 {% block body %}
     <a style="text-decoration: none; color: black" href="{{ path('app_produit_index') }}"><i class="fi fi-rr-arrow-small-left" style="font-size: 30px;"></i></a>
-    <div class="row mt-4 align-items-center">
-    <div class="col-md-6 d-flex align-items-center">
-        <h1 class="me-3">Détails du Produit</h1>
-        {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_ADMIN') %}
-            <a class='btn btn-warning me-2' href="{{ path('app_produit_edit', {'id': produit.id}) }}">Modifier</a>
+    <div class="d-flex flex-row mt-4 align-items-center w-100">
+        <div class="col-6">
+            <h1>{{ 'nav.produit'|trans }} {{ produit.nom }}</h1>
+        </div>
+        <div class="col-6 d-flex flex-row">
+            {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_ADMIN') %}
+            <a class='btn btn-warning me-2' href="{{ path('app_produit_edit', {'id': produit.id}) }}">{{ 'produit.buttonedit'|trans }}</a>
             {{ include('produit/_delete_form.html.twig') }}
         {% endif %}
-    </div>
-</div>
-
-
-    <div class="d-flex flex-row" style="margin=100px">
-        <div class="col-md-6">
-            
-            
-            <!-- Utilisation de img-fluid pour une image réactive -->
-            <img width="300px" height="300px" class="img-fluid" src="{{ asset('uploads/images/products_photo/' ~ produit.photo) }}" alt="Image de {{ produit.nom }}">
-            
         </div>
-        <div class="col-md-6">
-            {% if produit is not empty %}
-                <div class="card h-100"> <!-- h-100 pour aligner la hauteur avec l'image -->
+    </div>
+
+
+    <div class="d-flex flex-row card mt-5" style="margin=100px">
+        <div class="card-body row">
+            <div class="col-6 d-flex justify-content-center">
+                <img width="500px" height="500px" class="img-fluid" src="{{ asset('uploads/images/products_photo/' ~ produit.photo) }}" alt="{{ produit.nom }}">
+            </div>
+            <div class="col-6">
+                {% if produit is not empty %}
+                <div class="h-100 d-flex align-items-center"> <!-- h-100 pour aligner la hauteur avec l'image -->
                     <div class="card-body">
-                        <h5 class="card-title">{{ produit.nom }}</h5>
+                        <h2 class="card-title fw-bold">{{ produit.nom }}</h2>
+                        <label>{{ 'produit.prix'|trans }}:</label>
+                        <h3 class="card-text fw-bold">{{ produit.prix }} €</h3>
+                        <label>{{ 'produit.description'|trans }}:</label>
                         <p class="card-text">{{ produit.description }}</p>
-                        <p class="card-text">{{ produit.prix }} €</p>
+                        
+                        <a type="button" href="{{ path('app_panier_new', {'id': produit.id}) }}" class="btn btn-dark btn-sm">{{ 'produit.buttonadd2cart'|trans }}</a>
+
                     </div>
-                    <div class="card-footer">
-                        <a type="button" href="{{ path('app_panier_new', {'id': produit.id}) }}" class="btn btn-primary btn-sm">Ajouter au Panier</a>
-                    </div>
+
                 </div>
-            {% else %}
-                <p>Il n'y a aucun produit</p>
-            {% endif %}
+
+                {% else %}
+                    <p>Il n'y a aucun produit</p>
+                {% endif %}
+            </div>
         </div>
-    </div>
     </div>
 {% endblock %}

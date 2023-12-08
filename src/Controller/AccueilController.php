@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\ORM\EntityManagerInterface;
 
-#[Route('/{_locale}')]
+#[Route(['/{_locale}', '/'])]
 class AccueilController extends AbstractController
 {
     #[Route('/', name: 'app_accueil')]

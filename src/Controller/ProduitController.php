@@ -79,6 +79,8 @@ class ProduitController extends AbstractController
 
                 // Enregistrement du nom de fichier
                 $produit->setPhoto($newFilename);
+            } else {
+                $produit->setPhoto('default.png');
             }
 
             // Enregistrement du produit
@@ -211,6 +213,14 @@ class ProduitController extends AbstractController
                 $translator->trans('produit.alert.forbidden')
             );
             return $this->redirectToRoute('app_produit_index');
+        }
+
+        // supprimer le produit de la table contenupanier
+        $contenuPanier = $produit->getContenuPaniers();
+        foreach($contenuPanier as $contenu)
+        {
+            $entityManager->remove($contenu);
+            $entityManager->flush();
         }
 
         if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->request->get('_token'))) {

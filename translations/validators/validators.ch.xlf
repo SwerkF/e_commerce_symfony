@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="ch" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="positive">
+                <source>positive</source>
+                <target>请输入有效的价格。</target>
+            </trans-unit>
+            <trans-unit id="blank">
+                <source>blank</source>
+                <target>此字段不能为空。</target>
+            </trans-unit>
+            <trans-unit id="email">
+                <source>email</source>
+                <target>请输入有效的电子邮件。</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

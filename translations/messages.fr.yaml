@@ -71,6 +71,11 @@ regusername: "Nom d'utilisateur"
 regemail: "Email"
 alreadyhaveaccount: "Vous avez déjà un compte ?"
 notaccount: "Vous n'avez pas de compte ?"
+confirmdelete: "Voulez-vous vraiment supprimer cet objet ?"
+errornomempty: "Veuillez renseigner un nom."
+errnomshort: "Le nom doit faire minimum 2 caractères."
+errnomlong: "Le nom doit faire maximum 255 caractères."
+errorprix: "Veuillez renseigner un prix."
 
 error:
   forbidden: 
@@ -103,6 +108,12 @@ accueil:
   buttonabout: "En savoir plus..."
 
 produit:
+  nom: "Nom"
+  description: "Description"
+  prix: "Prix"
+  stock: "Stock"
+  categorie: "Catégorie"
+  photo: "Image"
   title: "Il n'y a plus qu'à choisir le produit !"
   buttonadd: "Ajouter un nouveau produit"
   buttonadd2cart: "Ajouter au panier"
@@ -141,7 +152,10 @@ register:
 categorie:
   nom: "Nom"
   create: "Nouvelle catégorie"
+  edit: "Modifier la catégorie"
   btnsave: "Sauvegarder"
+  title: "Catégories"
+  empty: "Il n'y a aucune catégorie."
   alert:
     added: "Catégorie crée!"
     edited: "Catégorie modifiée!"

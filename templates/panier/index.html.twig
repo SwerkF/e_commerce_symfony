@@ -21,6 +21,7 @@
                         <th>{{ 'panier.quantity'|trans }}</th>
                         <th>{{ 'panier.price'|trans }}</th>
                         <th>{{ 'panier.total'|trans }}</th>
+                        <th>{{ 'contenuPanier.actions'|trans }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,7 +31,11 @@
 
                     <tr>
                         <td>{{ item.produit.nom }}</td>
-                        <td>{{ item.quantite }}</td>
+                        <td>
+                            <a class="btn" href={{ path('app_panier_update_quantite', {'id': item.produit.id, 'bool': 0})}}>-</a>
+                                {{ item.quantite }}
+                            <a class="btn" href={{ path('app_panier_update_quantite', {'id': item.produit.id, 'bool': 1})}}>+</a>
+                        </td>
                         <td>{{ item.produit.prix }} €</td>
                         <td>
                             {{ item.produit.prix * item.quantite }} €
@@ -38,7 +43,7 @@
                         </td>
                         <td>
                             <div class="d-flex flex-row">
-                                <a href={{ path('app_produit_show', {'id': item.produit.id})}} class="btn btn-primary"><i class="fi fi-rr-eye"></i></a>
+                                <a href={{ path('app_produit_show', {'id': item.produit.id})}} class="btn btn-dark"><i class="fi fi-rr-eye"></i></a>
                                 {{ include('contenu_panier/_delete_form.html.twig', { 'contenu_panier': item }) }}
                             </div>
                         </td>
@@ -67,12 +72,11 @@
                 {{ 'panier.recap'|trans }}
             </div>
             <div class="card-body">
-            {% if panier is not null  %}
+            {% if panier.contenuPaniers is not empty  %}
                 <p class="card-text">{{ 'panier.totalht'|trans }}: {{ totalAmount }} €</p>
                 <p class="card-text">{{ 'panier.tva'|trans }}: 20 %</p>
-                <p class="card-text">{{ 'panier.coffee'|trans }}: 300 €</p>
-                <p class="card-text fw-bold">{{ 'panier.totalttc'|trans }}: {{(totalAmount * 1.2) + 300}} €</p>
-                <a href={{ path('app_panier_validate') }} class="btn btn-primary" >{{ 'panier.buttonorder'|trans }}</a>
+                <p class="card-text fw-bold">{{ 'panier.totalttc'|trans }}: {{(totalAmount * 1.2)}} €</p>
+                <a href={{ path('app_panier_validate') }} class="btn btn-dark" >{{ 'panier.buttonorder'|trans }}</a>
             {% else %}
                 <p class="card-text">{{ 'panier.emptyordertext'|trans }}</p>
                 <a href={{ path('app_panier_validate') }} class="btn btn-dark btn-sm disabled" disabled>{{ 'panier.buttonorder'|trans }}</a>

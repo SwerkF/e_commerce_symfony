@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="lg" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="positive">
+                <source>positive</source>
+                <target>Tosakidila malamu ya mokolo.</target>
+            </trans-unit>
+            <trans-unit id="blank">
+                <source>blank</source>
+                <target>Ezali lokola esalemaki ekoma lisusu.</target>
+            </trans-unit>
+            <trans-unit id="email">
+                <source>email</source>
+                <target>Tosakidila malamu ya motuna ya elekɛtroniki.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

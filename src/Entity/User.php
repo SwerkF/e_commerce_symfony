@@ -22,8 +22,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
-    #[Assert\NotBlank]
-    #[Assert\Email]
+    #[Assert\NotBlank(message: 'blank')]
+    #[Assert\Email(message: 'email')]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -39,7 +39,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $paniers;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(message: 'blank')]
     private ?string $username = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -208,7 +208,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function deleteProfilePicture(): void
     {
         if ($this->getLogo() != null) {
-            unlink(__DIR__.'/../../public/uploads/profile_pictures/'.$this->getProfilePicture());
+            unlink(__DIR__.'/../../public/uploads/images/profile_pictures/'.$this->getProfilePicture());
         }
     }
 }

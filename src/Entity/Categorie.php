@@ -19,14 +19,11 @@ class Categorie
 
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Assert\NotBlank(message: "Le nom de la catégorie ne peut pas être vide.")]
+    #[Assert\NotBlank(message: 'blank')]
     #[Assert\Length(
         min: 2,
-        max: 255,
-        minMessage: "Le nom de la catégorie doit contenir au moins {{ limit }} caractères.",
-        maxMessage: "Le nom de la catégorie ne peut pas contenir plus de {{ limit }} caractères."
+        max: 255
     )]
-    
     private ?string $nom = null;
 
     #[ORM\OneToMany(mappedBy: 'Categorie', targetEntity: Produit::class, orphanRemoval: true)]

@@ -3,7 +3,7 @@
 {% block title %}{{ 'produit.create'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>{{ 'produit.create'|trans }}</h1>
+    <a style="text-decoration: none; color: black" href="{{ path('app_produit_index') }}"><i class="fi fi-rr-arrow-small-left" style="font-size: 30px;"></i></a>
 
     {{ include('produit/_form.html.twig') }}
 

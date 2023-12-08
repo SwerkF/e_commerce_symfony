@@ -10,20 +10,21 @@ profile:
   email: "电子邮件"
   password: "密码"
   subtitle2: "您的订单"
-  numcommand: "订单号"
+  numcommand: "订单编号"
   datecommand: "订单日期"
   price: "金额"
-  precise: "待定"
+  precise: "请注明。"
   buttonedit: "编辑您的个人资料"
   actions: "操作"
   empty: "您没有订单"
   buttonsuccess: "确认"
+  list: "用户列表"
   alert:
     disconnected: "已断开连接。"
     connected: "您必须登录才能查看购物车。"
 
 input:
-  mime: "请选择正确的图像类型并确保大小合适。"
+  mime: "请选择正确的图像类型并保持大小一致。"
 
 panier:
   title: "购物车"
@@ -34,21 +35,23 @@ panier:
   price: "价格"
   total: "总计"
   action: "操作"
-  recap: "摘要"
-  totalht: "不含税总额"
+  recap: "总结"
+  totalht: "总计（不含税）"
   tva: "增值税"
   coffee: "咖啡税"
-  totalttc: "含税总额"
+  totalttc: "总计（含税）"
   buttonorder: "下订单"
-  emptyordertext: "请添加商品以完成订单。"
+  emptyordertext: "请添加产品以完成订单。"
   empty: "您的购物车是空的"
+  nocarts: "没有购物车"
+  list: "购物车列表"
   alert:
     connected: "您必须登录才能查看购物车。"
-    success: "订单已确认！感谢您的购物。"
-    error: "确认订单时出现错误。"
+    success: "订单已确认！感谢您的订购。"
+    error: "确认订单时发生错误。"
     forbidden: "您无权访问此页面。"
     empty: "您的购物车是空的。"
-    nostock: "库存中的产品不再可用："
+    nostock: "库存中的产品已经不再可用："
     deleted: "产品已从购物车中删除。"
     added: "产品已添加到购物车。"
 
@@ -58,21 +61,29 @@ mdp: "新密码"
 rmdp: "重复密码"
 omdp: "旧密码"
 errorlenmdp: "您的密码必须至少包含8个字符"
-erroragreeterm: "您必须接受通用条款。"
-errornomdp: "请输入密码。"
-errmdp: "密码错误"
+agreetermcond: "我接受通用条款和条件"
+erroragreeterm: "您必须接受通用条款和条件。"
+errornomdp: "请提供密码。"
+errmdp: "密码不正确"
 mdpedited: "密码已修改"
 mimetyperror: "您必须发送有效的图像文件。"
 regusername: "用户名"
 regemail: "电子邮件"
+alreadyhaveaccount: "您已经有一个帐户吗？"
+notaccount: "您没有帐户吗？"
+confirmdelete: "您确定要删除此对象吗？"
+errornomempty: "请提供名称。"
+errnomshort: "名称必须至少包含2个字符。"
+errnomlong: "名称不能超过255个字符。"
+errorprix: "请提供价格。"
 
 error:
-  forbidden: 
-    title: "错误403，拒绝访问。"
+  forbidden:
+    title: "错误403，访问被拒绝。"
     message: "您无权访问此页面。<a href='{{ path('app_accueil') }}>返回首页</a>"
   notfound:
     title: "错误404，页面未找到。"
-    message: "未找到请求的页面。<a href='{{ path('app_accueil') }}>返回首页</a>"
+    message: "所请求的页面未找到。<a href='{{ path('app_accueil') }}>返回首页</a>"
 
 nav:
   home: "首页"
@@ -83,13 +94,13 @@ nav:
   listcommand: "订单列表"
   cart: "购物车"
   login: "登录"
-  logout: "登出"
+  logout: "注销"
   register: "注册"
 
-footer: 
+footer:
   arr: "版权所有"
 
-accueil: 
+accueil:
   title: "首页"
   gamme: "香水系列"
   subtitle: "欢迎来到我们的香水销售网站。"
@@ -97,10 +108,16 @@ accueil:
   buttonabout: "了解更多..."
 
 produit:
+  nom: "名称"
+  description: "描述"
+  prix: "价格"
+  stock: "库存"
+  categorie: "类别"
+  photo: "图像"
   title: "现在只需选择产品！"
   buttonadd: "添加新产品"
   buttonadd2cart: "添加到购物车"
-  buttondetail: "详细信息"
+  buttondetail: "查看详细信息"
   more: "查看更多产品"
   empty: "没有任何产品。"
   buttonedit: "编辑"
@@ -109,6 +126,7 @@ produit:
   create: "创建产品"
   produittitle: "产品"
   edit: "编辑产品"
+  products: "产品"
   alert:
     connected: "您必须登录才能查看购物车。"
     success: "产品已创建！"
@@ -116,20 +134,12 @@ produit:
     deleted: "产品已删除。"
     edited: "产品已修改。"
 
-contenuPanier: 
+contenuPanier:
   title: "购物车内容"
   id: "ID"
   quantity: "数量"
   date: "添加日期"
   actions: "操作"
-
-categorie:
-  alert:
-    added: "类别已创建！"
-    edited: "类别已修改！"
-    connected: "您必须登录。"
-    deleted: "类别已删除！"
-    forbidden: "您无权访问此页面。"
 
 register:
   alert:
@@ -137,4 +147,19 @@ register:
     connected: "您必须登录才能查看购物车。"
     forbidden: "您无权访问此页面。"
     disconnected: "已断开连接"
-    edited: "个人资料已更新！"
+    edited: "配置文件已更新！"
+
+categorie:
+  nom: "名称"
+  create: "新建类别"
+  edit: "编辑类别"
+  btnsave: "保存"
+  title: "类别"
+  empty: "没有任何类别。"
+  alert:
+    added: "类别已创建！"
+    edited: "类别已修改！"
+    connected: "您必须登录。"
+    deleted: "类别已删除！"
+    forbidden: "您无权访问此页面。"
+

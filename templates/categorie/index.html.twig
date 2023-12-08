@@ -1,35 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Categorie index{% endblock %}
+{% block title %}{{ 'categorie.title'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Categorie index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for categorie in categories %}
-            <tr>
-                <td>{{ categorie.id }}</td>
-                <td>{{ categorie.nom }}</td>
-                <td>
-                    <a class="btn btn-dark btn-sm" href="{{ path('app_categorie_show', {'id': categorie.id}) }}">show</a>
-                    <a class="btn btn-dark btn-sm" href="{{ path('app_categorie_edit', {'id': categorie.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a class='btn btn-warning me-2' href="{{ path('app_categorie_new') }}">Create new</a>
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">{{ 'categorie.title'|trans }}</h1>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>{{ 'categorie.nom'|trans }}</th>
+                        <th>{{ 'contenuPanier.actions'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for categorie in categories %}
+                    <tr>
+                        <td>{{ categorie.id }}</td>
+                        <td>{{ categorie.nom }}</td>
+                        <td class="d-flex flex-row">
+                            <a class="btn btn-dark" href="{{ path('app_categorie_edit', {'id': categorie.id}) }}"><i class="fi fi-rr-pencil"></i></a>
+                            {{ include('categorie/_delete_form.html.twig') }}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3">{{ 'contenuPanier.empty'|trans }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}

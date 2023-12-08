@@ -19,19 +19,19 @@ class Produit
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(message: 'blank')]
     private ?string $nom = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(message: 'blank')]
     private ?string $description = null;
 
     #[ORM\Column]
-    #[Assert\Positive]
+    #[Assert\Positive(message: 'positive')]
     private ?float $prix = null;
 
     #[ORM\Column]
-    #[Assert\PositiveOrZero]
+    #[Assert\PositiveOrZero(message: 'positive')]
     private ?int $stock = null;
 
     #[ORM\Column(length: 255)]
@@ -42,7 +42,7 @@ class Produit
 
     #[ORM\ManyToOne(inversedBy: 'produits')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(message: 'blank')]
     private ?Categorie $Categorie = null;
 
     public function __construct()
@@ -160,8 +160,8 @@ class Produit
     #[ORM\PostRemove]
     public function deletePhoto(): void
     {
-        if ($this->getLogo() != null) {
-            unlink(__DIR__.'/../../public/uploads/products_photo/'.$this->getPhoto());
+        if ($this->getPhoto() != null) {
+            unlink(__DIR__.'/../../public/uploads/images/products_photo/'.$this->getPhoto());
         }
     }
 

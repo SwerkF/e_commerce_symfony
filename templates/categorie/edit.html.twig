@@ -1,13 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Categorie{% endblock %}
+{% block title %}{{ 'categorie.edit'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Edit Categorie</h1>
-
-    {{ include('categorie/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a class="btn btn-outline-secondary btn-sm mt-3" href="{{ path('app_categorie_index') }}">back to list</a>
-
-    {{ include('categorie/_delete_form.html.twig') }}
+    <div class="d-flex flex-start">
+        <a style="text-decoration: none; color: black" href="{{ path('app_produit_index') }}"><i class="fi fi-rr-arrow-small-left" style="font-size: 30px;"></i></a>
+        {{ include('categorie/_delete_form.html.twig') }}
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h1 class="text-center">{{ 'categorie.create'|trans }}</h1>
+        </div>
+        <div class="card-body">
+            {{ include('categorie/_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

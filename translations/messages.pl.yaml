@@ -1,36 +1,31 @@
-accueil:
-  buttonaddnew: "Dodaj nowy produkt"
-  title: "Seria perfum"
-  buttonaddcart: "Dodaj do koszyka"
-  buttondetail: "Więcej informacji o produkcie"
-nav:
-
 profile:
   login:
-    signin: "Zaloguj się"
+    signin: "Logowanie"
   title: "Profil"
   titlealternative: "Edytuj profil"
   subtitle1: "Twoje informacje"
   firstname: "Imię"
   lastname: "Nazwisko"
   username: "Nazwa użytkownika"
-  email: "E-mail"
+  email: "Email"
   password: "Hasło"
   subtitle2: "Twoje zamówienia"
   numcommand: "Numer zamówienia"
   datecommand: "Data zamówienia"
   price: "Kwota"
-  precise: "Precyzyjnie"
+  precise: "Do precyzacji."
   buttonedit: "Edytuj swój profil"
   actions: "Akcje"
   empty: "Nie masz żadnych zamówień"
   buttonsuccess: "Potwierdź"
+  list: "Lista użytkowników"
   alert:
-    disconnected: "Odłączono."
+    disconnected: "Rozłączony."
     connected: "Musisz być zalogowany, aby zobaczyć koszyk."
 
 input:
-  mime: "Proszę wybrać odpowiedni rodzaj obrazu i zachować właściwy rozmiar."
+  mime: "Proszę wybrać odpowiedni typ obrazu i zachować odpowiedni rozmiar."
+
 panier:
   title: "Koszyk"
   titlealternative: "Twoje zamówienie"
@@ -38,30 +33,49 @@ panier:
   productcount: "Liczba artykułów:"
   quantity: "Ilość"
   price: "Cena"
-  total: "Suma"
+  total: "Razem"
   action: "Akcja"
   recap: "Podsumowanie"
-  totalht: "Suma netto"
+  totalht: "Razem netto"
   tva: "Podatek VAT"
-  coffee: "Podatek kawowy"
-  totalttc: "Suma brutto"
+  coffee: "Podatek od kawy"
+  totalttc: "Razem brutto"
   buttonorder: "Zamów"
   emptyordertext: "Proszę dodać produkty, aby złożyć zamówienie."
   empty: "Twój koszyk jest pusty"
+  nocarts: "Brak koszyków"
+  list: "Lista koszyków"
   alert:
     connected: "Musisz być zalogowany, aby zobaczyć koszyk."
     success: "Zamówienie zatwierdzone! Dziękujemy za zakupy."
     error: "Wystąpił błąd podczas zatwierdzania zamówienia."
     forbidden: "Nie masz dostępu do tej strony."
+    empty: "Twój koszyk jest pusty."
+    nostock: "Produkt spośród dostępnych już nie jest dostępny: "
+    deleted: "Produkt usunięty z koszyka."
+    added: "Produkt dodany do koszyka."
+    
 titlemdp: "Zmiana hasła"    
 btneditmdr: "Edytuj"
 mdp: "Nowe hasło"
 rmdp: "Powtórz hasło"
 omdp: "Stare hasło"
 errorlenmdp: "Twoje hasło musi mieć co najmniej 8 znaków"
+agreetermcond: "Akceptuję ogólne warunki"
 erroragreeterm: "Musisz zaakceptować ogólne warunki."
 errornomdp: "Proszę podać hasło."
+errmdp: "Nieprawidłowe hasło"
+mdpedited: "Hasło zostało zmienione"
 mimetyperror: "Musisz przesłać poprawny plik obrazu."
+regusername: "Nazwa użytkownika"
+regemail: "Email"
+alreadyhaveaccount: "Masz już konto?"
+notaccount: "Nie masz konta?"
+confirmdelete: "Czy na pewno chcesz usunąć ten obiekt?"
+errornomempty: "Proszę podać nazwę."
+errnomshort: "Nazwa musi mieć co najmniej 2 znaki."
+errnomlong: "Nazwa nie może przekraczać 255 znaków."
+errorprix: "Proszę podać cenę."
 
 error:
   forbidden: 
@@ -69,4 +83,82 @@ error:
     message: "Nie masz dostępu do tej strony. <a href='{{ path('app_accueil') }}>Wróć do strony głównej</a>"
   notfound:
     title: "Błąd 404, strona nie znaleziona."
-    message: "Strona o podanym adresie nie istnieje. <a href='{{ path('app_accueil') }}>Wróć do strony głównej</a>"
+    message: "Żądana strona nie została znaleziona. <a href='{{ path('app_accueil') }}>Wróć do strony głównej</a>"
+
+nav:
+  home: "Strona główna"
+  produit: "Produkty"
+  addproduit: "Dodaj produkt"
+  addcategorie: "Dodaj kategorię"
+  listuser: "Lista użytkowników"
+  listcommand: "Lista zamówień"
+  cart: "Koszyk"
+  login: "Zaloguj się"
+  logout: "Wyloguj się"
+  register: "Zarejestruj się"
+
+footer: 
+  arr: "Wszelkie prawa zastrzeżone"
+
+accueil: 
+  title: "Strona główna"
+  gamme: "Gamme de parfum"
+  subtitle: "Witamy na naszej stronie sprzedaży perfum."
+  buttonshow: "Zobacz produkty"
+  buttonabout: "Dowiedz się więcej..."
+
+produit:
+  nom: "Nazwa"
+  description: "Opis"
+  prix: "Cena"
+  stock: "Stan magazynowy"
+  categorie: "Kategoria"
+  photo: "Zdjęcie"
+  title: "Zostało tylko wybrać produkt!"
+  buttonadd: "Dodaj nowy produkt"
+  buttonadd2cart: "Dodaj do koszyka"
+  buttondetail: "Więcej szczegółów"
+  more: "Zobacz więcej produktów"
+  empty: "Brak produktów."
+  buttonedit: "Edytuj"
+  buttondelete: "Usuń"
+  buttonsave: "Zapisz"
+  create: "Tworzenie produktu"
+  produittitle: "Produkty"
+  edit: "Edycja produktu"
+  products: "Produkty"
+  alert:
+    connected: "Musisz być zalogowany, aby zobaczyć koszyk."
+    success: "Produkt utworzony!"
+    forbidden: "Nie masz dostępu do tej strony."
+    deleted: "Produkt został usunięty."
+    edited: "Produkt został zmodyfikowany."
+
+contenuPanier: 
+  title: "Zawartość koszyka"
+  id: "ID"
+  quantity: "Ilość"
+  date: "Data dodania"
+  actions: "Akcje"
+
+register:
+  alert:
+    success: "Twoje konto zostało pomyślnie utworzone"
+    connected: "Musisz być zalogowany, aby zobaczyć koszyk."
+    forbidden: "Nie masz dostępu do tej strony."
+    disconnected: "Odłączony"
+    edited: "Profil został zaktualizowany!"
+
+categorie:
+  nom: "Nazwa"
+  create: "Nowa kategoria"
+  edit: "Edytuj kategorię"
+  btnsave: "Zapisz"
+  title: "Kategorie"
+  empty: "Brak kategorii."
+  alert:
+    added: "Kategoria utworzona!"
+    edited: "Kategoria zmieniona!"
+    connected: "Musisz być zalogowany."
+    deleted: "Kategoria usunięta!"
+    forbidden: "Nie masz dostępu do tej strony."
