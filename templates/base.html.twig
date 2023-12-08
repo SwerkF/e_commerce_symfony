@@ -65,10 +65,11 @@
                              {% if app.user and app.user.getProfilePicture() %}
                                 <a class="nav-link" href={{ path('app_profile') }}>
                                     <img src="{{ asset('uploads/images/profile_pictures/' ~ app.user.getProfilePicture()) }}" class="rounded-circle" style="object-fit: contain" width="40px" height="40px" alt="Photo de profil">
+                                </a>
                             {% else %}
-                                <i class="fi fi-rr-user"></i>
                             {% endif %}
                             {% if app.user and app.user.username %}
+                                <a class="nav-link" href={{ path('app_profile') }}>
                                     <span class="ms-2">{{ app.user.username }}</span>
                                 </a>
                                 <li class="nav-item">
