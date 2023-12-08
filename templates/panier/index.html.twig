@@ -5,11 +5,10 @@
 {% block body %}
 
 {% set totalAmount = 0 %}
-{% set nbArticles = 0 %}
                            
 <h1>{{ 'panier.title'|trans }}</h1>
 {% if panier is not empty %}
-<p class="card-text">{{ 'panier.productcount'|trans }} : {{ nbArticles }}</p>
+<p class="card-text">{{ 'panier.productcount'|trans }} : {{ panier.contenuPaniers|length }}</p>
 {% endif %}
 <div class="row">
     <div class="col-8">
@@ -28,15 +27,10 @@
                 
                 {% if panier is not null  %}
                     {% for item in panier.contenuPaniers %}
+
                     <tr>
-                        
-                        {% set nbArticles = nbArticles + item.quantite %}
                         <td>{{ item.produit.nom }}</td>
-                        <td>
-                            <a class="btn" href={{ path('app_panier_update_quantite', {'id': item.produit.id, 'bool': 0})}}>-</a>
-                            {{ item.quantite }}
-                            <a class="btn" href={{ path('app_panier_update_quantite', {'id': item.produit.id, 'bool': 1})}}>+</a>
-                        </td>
+                        <td>{{ item.quantite }}</td>
                         <td>{{ item.produit.prix }} €</td>
                         <td>
                             {{ item.produit.prix * item.quantite }} €
@@ -78,10 +72,10 @@
                 <p class="card-text">{{ 'panier.tva'|trans }}: 20 %</p>
                 <p class="card-text">{{ 'panier.coffee'|trans }}: 300 €</p>
                 <p class="card-text fw-bold">{{ 'panier.totalttc'|trans }}: {{(totalAmount * 1.2) + 300}}</p>
-                <a href={{ path('app_panier_validate') }} class="btn btn-primary" >{{ 'panier.buttonorder'|trans }}</a>
+                <a href={{ path('app_panier_validate') }} class="btn btn-dark btn-sm" >{{ 'panier.buttonorder'|trans }}</a>
             {% else %}
                 <p class="card-text">{{ 'panier.emptyordertext'|trans }}</p>
-                <a href={{ path('app_panier_validate') }} class="btn btn-primary disabled" disabled>{{ 'panier.buttonorder'|trans }}</a>
+                <a href={{ path('app_panier_validate') }} class="btn btn-dark btn-sm disabled" disabled>{{ 'panier.buttonorder'|trans }}</a>
             {% endif %}
             </div>
         </div>
