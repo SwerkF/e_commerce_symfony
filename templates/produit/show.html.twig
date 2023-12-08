@@ -3,12 +3,25 @@
 {% block title %}Produit{% endblock %}
 
 {% block body %}
-    <h1>Détails du Produit</h1>
+    <a style="text-decoration: none; color: black" href="{{ path('app_produit_index') }}"><i class="fi fi-rr-arrow-small-left" style="font-size: 30px;"></i></a>
+    <div class="row mt-4 align-items-center">
+    <div class="col-md-6 d-flex align-items-center">
+        <h1 class="me-3">Détails du Produit</h1>
+        {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_ADMIN') %}
+            <a class='btn btn-warning me-2' href="{{ path('app_produit_edit', {'id': produit.id}) }}">Modifier</a>
+            {{ include('produit/_delete_form.html.twig') }}
+        {% endif %}
+    </div>
+</div>
+
 
     <div class="d-flex flex-row" style="margin=100px">
         <div class="col-md-6">
+            
+            
             <!-- Utilisation de img-fluid pour une image réactive -->
             <img width="300px" height="300px" class="img-fluid" src="{{ asset('uploads/images/products_photo/' ~ produit.photo) }}" alt="Image de {{ produit.nom }}">
+            
         </div>
         <div class="col-md-6">
             {% if produit is not empty %}
@@ -20,7 +33,6 @@
                     </div>
                     <div class="card-footer">
                         <a type="button" href="{{ path('app_panier_new', {'id': produit.id}) }}" class="btn btn-primary btn-sm">Ajouter au Panier</a>
-                        <a type="button" href="{{ path('app_produit_show', {'id': produit.id}) }}" class="btn btn-secondary btn-sm">Plus de détails sur le produit</a>
                     </div>
                 </div>
             {% else %}
@@ -28,22 +40,5 @@
             {% endif %}
         </div>
     </div>
-    <div>
-    <a class='btn btn-primary' href="{{ path('app_produit_index') }}">Retourner à la liste</a>
-
-    <!--Uniquement l'admin peut supprimer ou ajouter un produit-->
-    {% if is_granted('ROLE_SUPER_ADMIN') %}
-    <a class='btn btn-warning' href="{{ path('app_produit_edit', {'id': produit.id}) }}">Modifier les infos du produit</a>
-    {{ include('produit/_delete_form.html.twig') }}
-    {% elseif is_granted('ROLE_ADMIN')%}
-    <a class='btn btn-warning' href="{{ path('app_produit_edit', {'id': produit.id}) }}">Modifier les infos du produit</a>
-    {{ include('produit/_delete_form.html.twig') }}
-    {% endif %}
     </div>
-    
-    
-
-
-    
-
 {% endblock %}

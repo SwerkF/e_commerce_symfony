@@ -5,7 +5,6 @@
 {% block body %}
 
 {% set totalAmount = 0 %}
-{% set nbArticles = 0 %}
                            
 
 <div class="d-flex flex-row gap-4">
@@ -28,15 +27,10 @@
                 
                 {% if panier is not null  %}
                     {% for item in panier.contenuPaniers %}
+
                     <tr>
-                        
-                        {% set nbArticles = nbArticles + item.quantite %}
                         <td>{{ item.produit.nom }}</td>
-                        <td>
-                            <a class="btn" href={{ path('app_panier_update_quantite', {'id': item.produit.id, 'bool': 0})}}>-</a>
-                            {{ item.quantite }}
-                            <a class="btn" href={{ path('app_panier_update_quantite', {'id': item.produit.id, 'bool': 1})}}>+</a>
-                        </td>
+                        <td>{{ item.quantite }}</td>
                         <td>{{ item.produit.prix }} €</td>
                         <td>
                             {{ item.produit.prix * item.quantite }} €
@@ -81,7 +75,7 @@
                 <a href={{ path('app_panier_validate') }} class="btn btn-primary" >{{ 'panier.buttonorder'|trans }}</a>
             {% else %}
                 <p class="card-text">{{ 'panier.emptyordertext'|trans }}</p>
-                <a href={{ path('app_panier_validate') }} class="btn btn-primary disabled" disabled>{{ 'panier.buttonorder'|trans }}</a>
+                <a href={{ path('app_panier_validate') }} class="btn btn-dark btn-sm disabled" disabled>{{ 'panier.buttonorder'|trans }}</a>
             {% endif %}
             </div>
         </div>
