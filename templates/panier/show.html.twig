@@ -5,12 +5,14 @@
 {% block body %}
 {% set totalAmount = 0 %}
 
-<h1>{{ 'panier.titlealternative'|trans }}</h1>
-<p class="card-text">{{ 'panier.productcount'|trans }} : {{ panier.contenuPaniers|length }}</p>
-<div class="row">
-    <div class="col-8">
-        <div class="table table-stripped">
-            <table class="table">
+<div class="d-flex flex-row gap-4">
+    <div class="col-8 card">
+        <div class="card-header">
+            <h1>{{ 'panier.titlealternative'|trans }}</h1>
+            <p class="card-text">{{ 'panier.productcount'|trans }} : {{ panier.contenuPaniers|length }}</p>
+        </div>
+        <div class="card-body">
+            <table class="table table-stripped">
                 <thead>
                     <tr>
                         <th>{{ 'panier.product'|trans }}</th>
@@ -47,7 +49,7 @@
                 {% endif %}
                 </tbody>
             </table>
-        </div>  
+        </div> 
     </div>
     <div class="col-4"> 
         <div class="card">

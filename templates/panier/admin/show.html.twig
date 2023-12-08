@@ -1,39 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Votre commande{% endblock %}
+{% block title %}{{ 'panier.list'|trans }}{% endblock %}
 
 {% block body %}
-    <h2 class="mt-4">Vos commandes</h2>
-    <div class="row">
-        <table class="table table-stripped">
-            <thead>
-                <tr>
-                    <th>Nom d'utilisateur</th>
-                    <th>Numéro commande</th>
-                    <th>Contenu</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for commande in paniers %}
+
+    <div class="card">
+        <div class="card-header">
+        <h1 class="text-center">{{ 'panier.list'|trans }}</h1>
+        </div>
+        <div class="card-body">
+            <table class="table table-stripped">
+                <thead>
                     <tr>
-                        <td>{{commande.utilisateur.username}}</td>
-                        <td>{{commande.getDateAchat()|date('d/m/Y')}}</td>
-                        <td> 
-                            {% for contenu in commande.getContenuPaniers() %}
-                                <ul>
-                                    <li> {{ contenu.produit.nom }} </li>
-                                </ul>
-                            {% endfor  %}
-                        </td>
+                        <th>{{ 'profile.username'|trans }}</th>
+                        <th>ID</th>
+                        <th>{{ 'produit.products'|trans }}</th>
                     </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="6">
-                            Vous n'avez pas de commandes.
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {% for commande in paniers %}
+                        <tr>
+                            <td>{{commande.utilisateur.username}}</td>
+                            <td>{{commande.getDateAchat()|date('d/m/Y')}}</td>
+                            <td> 
+                                {% for contenu in commande.getContenuPaniers() %}
+                                    <ul>
+                                        <li> {{ contenu.produit.nom }} </li>
+                                    </ul>
+                                {% endfor  %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6">
+                                {{ 'panier.nocarts'|trans }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock %}

@@ -26,17 +26,25 @@ class PanierController extends AbstractController
     #[Route('/', name: 'app_panier_index', methods: ['GET'])]
     public function index(TranslatorInterface $translator, EntityManagerInterface $em): Response
     {
+        $user = $this->getUser();
         // Redirection si aucun utilisateur est connecté 
-        if($this->getUser() == null) {
+        if($user == null) {
             $this->addFlash(
                 'danger',
                 $translator->trans('panier.alert.connected')
             );
-            $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_login');
         }
 
         // Récupérer le dernier panier de l'utilisateur
         $panier = $em->getRepository(Panier::class)->findOneBy(['utilisateur' => $this->getUser(), 'status'=>0]);
+
+        // Si panier inexistant, le créer
+        $panier = new Panier();
+
+        $panier->setUtilisateur($user)->setStatus(0);
+        $em->persist($panier);
+        $em->flush();
 
         // Redirection
         return $this->render('panier/index.html.twig', [
@@ -54,7 +62,7 @@ class PanierController extends AbstractController
                 'danger',
                 $translator->trans('panier.alert.connected')
             );
-            $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_login');
         }
 
         // Récupérer le dernier panier de l'utilisateur

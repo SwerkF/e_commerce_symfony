@@ -168,7 +168,7 @@ class SecurityController extends AbstractController
 
         $users = $userRepository->findAll();
 
-        return $this->render('panier/admin/showUser.html.twig', [
+        return $this->render('security/admin/show.html.twig', [
             'users' => $users,
         ]);
     }
