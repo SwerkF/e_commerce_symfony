@@ -14,6 +14,8 @@ Create a `.env.local` file with credentials for phpmyadmin.
 
 Create database via `symfony console d:d:c`.
 
+Ignore the SQLSTATE[42S01]: Base table or view already exists: 1050 Table 'categorie' as it run two times
+
 Migrate the database via `symfony console d:m:m`.
 
 Launch the app via `symfony serve:start`
