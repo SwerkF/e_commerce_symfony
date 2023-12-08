@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Panier;
 use App\Form\PanierType;
 use App\Entity\Produit;
+use App\Entity\ContenuPanier;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\PanierRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,6 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
 
 #[Route('/{_locale}/panier')]
 class PanierController extends AbstractController
@@ -261,24 +264,56 @@ class PanierController extends AbstractController
     
 
  
-    #[Route('/new', name: 'app_panier_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/ajouter/{id}', name: 'app_panier_new', methods: ['GET', 'POST'])]
+    public function new(Produit $produit, int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $panier = new Panier();
-        $form = $this->createForm(PanierType::class, $panier);
-        $form->handleRequest($request);
+        $user = $this->getUser();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($panier);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_panier_index', [], Response::HTTP_SEE_OTHER);
+        if (!$user) {
+            $this->addFlash('error', 'Vous devez être connecté pour ajouter un produit au panier.');
+            return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('panier/new.html.twig', [
-            'panier' => $panier,
-            'form' => $form,
-        ]);
+        $panier = $entityManager->getRepository(Panier::class)->findOneBy(['utilisateur' => $user, 'status' => 0]);
+        if(!$panier){
+            $panier = new Panier();
+            $panier->setUtilisateur($user);
+            $panier->setStatus(0);
+        }
+        $entityManager->persist($panier);
+        $entityManager->flush();
+    
+        $contenuPanier = $panier->getContenuPaniers();
+        $trouve = 0;
+        $i = 0;
+        while($i < count($contenuPanier) && !$trouve)
+        {
+            $item = $contenuPanier[$i];
+            if($item->getProduit() == $produit)
+            {
+                $item->setQuantite($item->getQuantite() + 1);
+                $entityManager->persist($item);
+                $entityManager->flush();
+                $trouve = 1;
+            } else 
+            {
+                $i++;
+            }
+        }
+
+        if (!$trouve) {
+            // Ajouter un nouveau produit au panier
+            $contenuPanier = new ContenuPanier();
+            $contenuPanier->setDateAjout(new \DateTime())
+                        ->setProduit($produit)
+                        ->setQuantite(1)
+                        ->setPanier($panier);
+            $entityManager->persist($contenuPanier);
+            $entityManager->flush();
+        } 
+
+        $this->addFlash('success', "Le produit a été ajouté au panier.");
+        return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);        
     }
 /*
     #[Route('/{id}/edit', name: 'app_panier_edit', methods: ['GET', 'POST'])]

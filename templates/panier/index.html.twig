@@ -3,6 +3,8 @@
 {% block title %}{{ 'panier.title'|trans }}{% endblock %}
 
 {% block body %}
+{{dump(panier)}}
+
 {% set totalAmount = 0 %}
 {% set nbArticles = 0 %}
                            
@@ -24,6 +26,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                
                 {% if panier is not null  %}
                     {% for item in panier.contenuPaniers %}
                     <tr>
