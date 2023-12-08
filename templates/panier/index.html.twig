@@ -4,10 +4,11 @@
 
 {% block body %}
 {% set totalAmount = 0 %}
+{% set nbArticles = 0 %}
                            
 <h1>{{ 'panier.title'|trans }}</h1>
 {% if panier is not empty %}
-<p class="card-text">{{ 'panier.productcount'|trans }} : {{ panier.contenuPaniers|length }}</p>
+<p class="card-text">{{ 'panier.productcount'|trans }} : {{ nbArticles }}</p>
 {% endif %}
 <div class="row">
     <div class="col-8">
@@ -26,8 +27,14 @@
                 {% if panier is not null  %}
                     {% for item in panier.contenuPaniers %}
                     <tr>
+                        
+                        {% set nbArticles = nbArticles + item.quantite %}
                         <td>{{ item.produit.nom }}</td>
-                        <td>{{ item.quantite }}</td>
+                        <td>
+                            <a class="btn" href={{ path('app_panier_update_quantite', {'id': item.produit.id, 'bool': 0})}}>-</a>
+                            {{ item.quantite }}
+                            <a class="btn" href={{ path('app_panier_update_quantite', {'id': item.produit.id, 'bool': 1})}}>+</a>
+                        </td>
                         <td>{{ item.produit.prix }} €</td>
                         <td>
                             {{ item.produit.prix * item.quantite }} €

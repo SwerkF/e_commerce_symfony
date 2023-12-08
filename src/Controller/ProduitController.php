@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-#[Route('/produit')]
+#[Route('/{_locale}/produit')]
 class ProduitController extends AbstractController
 {
     #[Route('/', name: 'app_produit_index', methods: ['GET'])]
@@ -27,10 +27,28 @@ class ProduitController extends AbstractController
     #[Route('/new', name: 'app_produit_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        if($user == null)
+        {
+            $this->addFlash(
+                'danger',
+                'Vous devez être connecté pour ajouter un produit'
+            );
+            return $this->redirectToRoute('app_login');
+        }
+
+        if(!in_array('ROLE_SUPER_ADMIN', $user->getRoles()) && !in_array('ROLE_ADMIN', $user->getRoles()))
+        {
+            $this->addFlash(
+                'danger',
+                'Vous n\'avez pas les droits pour ajouter un produit'
+            );
+            return $this->redirectToRoute('app_produit_index');
+        }
+
         $produit = new Produit();
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
 
             $imageFile = $form->get('photo')->getData();
@@ -72,6 +90,25 @@ class ProduitController extends AbstractController
     #[Route('/{id}/edit', name: 'app_produit_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        if($user == null)
+        {
+            $this->addFlash(
+                'danger',
+                'Vous devez être connecté pour modifier un produit'
+            );
+            return $this->redirectToRoute('app_login');
+        }
+
+        if(!in_array('ROLE_SUPER_ADMIN', $user->getRoles()) && !in_array('ROLE_ADMIN', $user->getRoles()))
+        {
+            $this->addFlash(
+                'danger',
+                'Vous n\'avez pas les droits pour modifier un produit'
+            );
+            return $this->redirectToRoute('app_produit_index');
+        }
+
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
 
@@ -90,6 +127,25 @@ class ProduitController extends AbstractController
     #[Route('/{id}', name: 'app_produit_delete', methods: ['POST'])]
     public function delete(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        if($user == null)
+        {
+            $this->addFlash(
+                'danger',
+                'Vous devez être connecté pour modifier un produit'
+            );
+            return $this->redirectToRoute('app_login');
+        }
+
+        if(!in_array('ROLE_SUPER_ADMIN', $user->getRoles()) && !in_array('ROLE_ADMIN', $user->getRoles()))
+        {
+            $this->addFlash(
+                'danger',
+                'Vous n\'avez pas les droits pour modifier un produit'
+            );
+            return $this->redirectToRoute('app_produit_index');
+        }
+
         if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->request->get('_token'))) {
             $entityManager->remove($produit);
             $entityManager->flush();

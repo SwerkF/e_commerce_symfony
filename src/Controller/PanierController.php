@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Panier;
 use App\Form\PanierType;
+use App\Entity\Produit;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\PanierRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -56,6 +58,37 @@ class PanierController extends AbstractController
         $panier = $panierRepository->findOneBy(['utilisateur' => $this->getUser(), 'status'=>0]);
 
         try {
+            // Si le panier est vide
+            if($panier->getContenuPaniers()->isEmpty())
+            {
+                $this->addFlash(
+                    'danger',
+                    $translator->trans('panier.alert.empty')
+                );
+                $this->redirectToRoute('app_panier_index');
+            }
+
+            // foreach produit
+            foreach ($panier->getContenuPaniers() as $contenu) {
+                $produit = $contenu->getProduit();
+                // Si le produit est en stock
+                if($produit->getStock() >= $contenu->getQuantite())
+                {
+                    $produit->setStock($produit->getStock() - $contenu->getQuantite());
+
+                    $em->persist($produit);
+                    $em->flush();
+                }
+                else {
+                    // Message flash
+                    $this->addFlash(
+                        'danger',
+                        $translator->trans('panier.alert.nostock'). ' ' . $produit->getNom() . ' Quantité disponible: ' . $produit->getStock()
+                    );
+                    return $this->redirectToRoute('app_panier_index');
+                }
+            }
+
             // Changement status du panier pour valider la commande
             $panier->setStatus(1);
             $panier->setDateAchat(new \DateTime());
@@ -81,6 +114,78 @@ class PanierController extends AbstractController
 
         // Redirection
         return $this->redirectToRoute('app_accueil');
+    }
+
+    #[Route('/quantite/{id}/{bool}', name:"app_panier_update_quantite")]
+    public function addQuantite(Produit $produit, EntityManagerInterface $em, bool $bool): Response
+    {
+
+        // Redirection si aucun utilisateur est connecté
+        $profile = $this->getUser();
+        if($profile == null)
+        {
+            // Message flash
+            $this->addFlash(
+                'danger',
+                'Vous devez être connecté pour accéder à cette page.'
+            );
+
+            return $this->redirectToRoute('app_login');
+        }
+
+        // Récupération du panier de l'utilisateur
+        $panier = $em->getRepository(Panier::class)->findOneBy(['utilisateur' => $profile, 'status'=>0]);
+        
+        // Récupérer les objets du panier
+        $contenu = $panier->getContenuPaniers();
+
+        // Si le produit est déjà dans le panier
+        foreach ($contenu as $contenuPanier) {
+            if($contenuPanier->getProduit() == $produit)
+            {
+                // Si on veut ajouter une quantité
+                if($bool == 1)
+                {
+                    // Si le produit est en stock
+                    if($produit->getStock() > $contenuPanier->getQuantite())
+                    {
+                        $contenuPanier->setQuantite($contenuPanier->getQuantite() + 1);
+                        $em->persist($contenuPanier);
+                        $em->flush();
+                    }
+                    else {
+                        // Message flash
+                        $this->addFlash(
+                            'danger',
+                            'Le produit n\'est plus en stock.'
+                        );
+                    }
+                }
+                // Si on veut enlever une quantité
+                else {
+                    // Si la quantité est supérieur à 1
+                    if($contenuPanier->getQuantite() > 1)
+                    {
+                        $contenuPanier->setQuantite($contenuPanier->getQuantite() - 1);
+                        $em->persist($contenuPanier);
+                        $em->flush();
+                    }
+                    else {
+                        // supprimer 
+                        $em->remove($contenuPanier);
+                        $em->flush();
+
+                        // Message flash
+                        $this->addFlash(
+                            'success',
+                            'Le produit a été supprimé du panier.'
+                        );
+                    }
+                }
+            }
+        }
+
+        return $this->redirectToRoute('app_panier_index');
     }
 
     // Route pour consulter les paniers non achetés
