@@ -13,7 +13,7 @@
     <button type="button" class="btn btn-outline-secondary"><a href="{{ path('app_produit_new') }}" style="text-decoration: none; color: black;">Ajouter un nouveau Produit</a></button>
     {% endif %}
 
-    <h1 style="text-align:center"> Il n'ya Plus qu'à choisir une produit!</h1>
+    <h1 style="text-align:center"> Il n'ya Plus qu'à choisir un produit!</h1>
 
     {% if produits is not empty %}
     <div class="row">
@@ -37,43 +37,4 @@
 {% else %}
     <p>Il n'y a aucun produit</p>
 {% endif %}
-
-    <!--<table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Prix</th>
-                <th>Stock</th>
-                <th>Photo</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        
-        {% for produit in produits %}
-            <tr>
-                <td>{{ produit.id }}</td>
-                <td>{{ produit.nom }}</td>
-                <td>{{ produit.description }}</td>
-                <td>{{ produit.prix }}</td>
-                <td>{{ produit.stock }}</td>
-                <td>
-                    <img src="{{asset('uploads/images/products_photo/' ~ produit.photo)}}" style="height: 50px"/>
-                </td>
-                <td>
-                    <a href="{{ path('app_produit_show', {'id': produit.id}) }}">show</a>
-                    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_produit_new') }}">Create new</a>-->
 {% endblock %}

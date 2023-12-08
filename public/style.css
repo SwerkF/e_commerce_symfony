@@ -1,0 +1,42 @@
+body {
+    background: rgb(255,226,227);
+    background: linear-gradient(310deg, rgba(255,226,227,1) 0%, rgba(245,245,255,1) 35%, rgba(255,189,254,1) 100%);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.navstyle {
+    background: rgba(255, 255, 255, 0.45);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+* {
+    font-family: 'DM Sans', sans-serif;
+}
+
+.landing {
+    height: 80vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 100px;
+}
+
+.accueil-title {
+    font-size: 150px !important;
+    color: #000000;
+    margin-top: 50px;
+}
+
+.accueil-subtitle {
+    font-size: 50px !important;
+    color: #000000;
+    margin-top: -20px;
+}
+

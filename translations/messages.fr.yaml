@@ -31,6 +31,7 @@ profile:
 
 input:
   mime: "Merci de choisir le bon type d'image et de respecter la taille."
+
 panier:
   title: "Panier"
   titlealternative: "Votre commande"
@@ -53,6 +54,9 @@ panier:
     success: "Commande validée! Merci pour votre commande."
     error: "Une erreur est survenue lors de la validation."
     forbidden: "Vous n'avez pas accès à cette page."
+    empty: "Votre panier est vide."
+    nostock: "Un produit en stock n'est plus disponible: "
+    
 titlemdp: "Modification du mot de passe"    
 btneditmdr: "Modifier"
 mdp: "Nouveau mot de passe"

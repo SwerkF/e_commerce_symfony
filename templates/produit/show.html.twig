@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Détails du Produit</h1>
 
-    <div class="d-flex flex-row">
+    <div class="d-flex flex-row" style="margin=100px">
         <div class="col-md-6">
             <!-- Utilisation de img-fluid pour une image réactive -->
             <img width="300px" height="300px" class="img-fluid" src="{{ asset('uploads/images/products_photo/' ~ produit.photo) }}" alt="Image de {{ produit.nom }}">
@@ -28,17 +28,18 @@
             {% endif %}
         </div>
     </div>
-
-    <a href="{{ path('app_produit_index') }}">Retourner à la liste</a>
+    <div>
+    <a class='btn btn-primary' href="{{ path('app_produit_index') }}">Retourner à la liste</a>
 
     <!--Uniquement l'admin peut supprimer ou ajouter un produit-->
     {% if is_granted('ROLE_SUPER_ADMIN') %}
-    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">Modifier les infos du produit</a>
+    <a class='btn btn-warning' href="{{ path('app_produit_edit', {'id': produit.id}) }}">Modifier les infos du produit</a>
     {{ include('produit/_delete_form.html.twig') }}
     {% elseif is_granted('ROLE_ADMIN')%}
-    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">Modifier les infos du produit</a>
+    <a class='btn btn-warning' href="{{ path('app_produit_edit', {'id': produit.id}) }}">Modifier les infos du produit</a>
     {{ include('produit/_delete_form.html.twig') }}
     {% endif %}
+    </div>
     
     
 
