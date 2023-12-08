@@ -88,7 +88,7 @@ class RegistrationController extends AbstractController
         // Récupération des utilisateurs
         $users = $userRepository->findBy([], ['id' => 'DESC']);
 
-        return $this->render('panier/admin/showUser.html.twig', [
+        return $this->render('security/admin/show.html.twig', [
             'users' => $users,
         ]);
     }

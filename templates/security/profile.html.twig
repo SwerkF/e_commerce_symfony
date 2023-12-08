@@ -35,7 +35,7 @@
                         {% endif %}
                     </div>
                     <div class="nom col-6">
-                        <label for="nom">Nom:</label>
+                        <label for="nom">{{ 'profile.nom'|trans }}</label>
                         {% if user.nom is not empty %}
                             <p class="fw-bold">{{user.nom}}</p>
                         {% else %}

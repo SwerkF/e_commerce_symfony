@@ -6,7 +6,7 @@ profile:
   subtitle1: "Vos informations"
   firstname: "Prenom"
   lastname: "Nom"
-  username: "Nom"
+  username: "Nom d'utilisateur"
   email : "Email"
   password: "Mot de passe"
   subtitle2: "Vos commandes"
@@ -18,6 +18,7 @@ profile:
   actions: "Action"
   empty: "Vous n'avez pas de commande"
   buttonsuccess: "Confirmer"
+  list: "Liste des utilisateurs"
   alert:
     disconnected: "Deconnecté."
     connected: "Vous devez être connecté pour consulter votre panier."
@@ -42,6 +43,8 @@ panier:
   buttonorder: "Commander"
   emptyordertext: "Veuillez ajouter des produits pour passer une commande."
   empty: "Votre panier est vide"
+  nocarts: "Il n'y a aucun panier"
+  list: "Liste de panier"
   alert:
     connected: "Vous devez être connecté pour consulter votre panier."
     success: "Commande validée! Merci pour votre commande."
@@ -58,6 +61,7 @@ mdp: "Nouveau mot de passe"
 rmdp: "Répétez le mot de passe"
 omdp: "Ancien mot de passe"
 errorlenmdp: "Votre mot de passe doit faire minimum 8 caractères"
+agreetermcond: "J'accepte les conditions générales"
 erroragreeterm: "Vous devez accepter les conditions générales."
 errornomdp: "Veuillez renseigner un mot de passe."
 errmdp: "Mot de passe incorrect"
@@ -65,6 +69,8 @@ mdpedited: "Mot de passe modifié"
 mimetyperror: "Vous devez envoyer un fichier image valide."
 regusername: "Nom d'utilisateur"
 regemail: "Email"
+alreadyhaveaccount: "Vous avez déjà un compte ?"
+notaccount: "Vous n'avez pas de compte ?"
 
 error:
   forbidden: 
@@ -109,6 +115,7 @@ produit:
   create: "Création de produit"
   produittitle: "Produits"
   edit: "Edition de produit"
+  products: "Produits"
   alert:
     connected: "Vous devez être connecté pour consulter votre panier."
     success: "Produit crée !"
@@ -123,14 +130,6 @@ contenuPanier:
   date: "Date d'ajout"
   actions: "Actions"
 
-categorie:
-  alert:
-    added: "Catégorie crée!"
-    edited: "Catégorie modifiée!"
-    connected: "Vous devez être connecté."
-    deleted: "Catégorie supprimée!"
-    forbidden: "Vous n'avez pas accès à cette page."
-
 register:
   alert:
     success: "Votre compte a bien été crée"
@@ -138,3 +137,14 @@ register:
     forbidden: "Vous n'avez pas accès à cette page."
     disconnected: "Déconnecté"
     edited: "Profil mis à jour!"
+
+categorie:
+  nom: "Nom"
+  create: "Nouvelle catégorie"
+  btnsave: "Sauvegarder"
+  alert:
+    added: "Catégorie crée!"
+    edited: "Catégorie modifiée!"
+    connected: "Vous devez être connecté."
+    deleted: "Catégorie supprimée!"
+    forbidden: "Vous n'avez pas accès à cette page."
